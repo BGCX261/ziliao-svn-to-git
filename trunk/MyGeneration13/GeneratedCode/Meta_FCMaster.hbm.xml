@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Meta_FCMaster" table="Meta_FCMaster">
+
+		<id name="FunctionName" column="FunctionName" type="String">
+			<generator class="assigned"/>
+		</id>
+		<bag name="MetaFcDetailList" inverse="true" lazy="true" >
+			<key column="FunctionName" />
+			<one-to-many class="MetaFcDetail" />
+		</bag>
+		<property column="FunctionCode" type="Int32" name="m_FunctionCode" />
+		<property column="Description" type="String" name="m_Description" length="255" />
+		<property column="Function" type="String" name="m_Function" length="0" />
+		<property column="DIAG" type="Byte" name="m_DIAG" />
+		<property column="InputCount" type="Byte" name="m_InputCount" />
+		<property column="SpecCount" type="Byte" name="m_SpecCount" />
+		<property column="OutPutCount" type="Byte" name="m_OutPutCount" />
+		<property column="InternalCount" type="Int32" name="m_InternalCount" />
+		<property column="FCLength" type="Int16" name="m_FCLength" />
+		<property column="Type" type="String" name="m_Type" length="50" />
+		
+	</class>
+</hibernate-mapping>

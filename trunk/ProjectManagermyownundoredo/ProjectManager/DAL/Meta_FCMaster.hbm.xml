@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="TDK.Core.Logic.DAL.Meta_FCMaster,TDK.Core.Logic" table="Meta_FCMaster" lazy="true">
+
+		<id name="ID" column="ID" type="Int32" unsaved-value="-1">
+			<generator class="increment"/>
+		</id>
+		<property column="FunctionName" type="String" name="FunctionName" length="50" />
+		<property column="FunctionCode" type="Int32" name="FunctionCode" />
+		<property column="Description" type="String" name="Description" length="255" />
+		<property column="Function" type="String" name="Function" length="200" />
+		<property column="DIAG" type="Int32" name="DIAG" />
+		<property column="InputCount" type="Int32" name="InputCount" />
+		<property column="SpecCount" type="Int32" name="SpecCount" />
+		<property column="OutPutCount" type="Int32" name="OutPutCount" />
+		<property column="InternalCount" type="Int32" name="InternalCount" />
+		<property column="FCLength" type="Int16" name="FCLength" />
+		<property column="Type" type="String" name="Type" length="50" />
+		
+	</class>
+</hibernate-mapping>

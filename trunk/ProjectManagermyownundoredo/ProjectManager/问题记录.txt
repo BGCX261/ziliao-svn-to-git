@@ -1,0 +1,42 @@
+09-06-29
+
+1.  OutputPin的显示状态
+    
+    Visible     Linked      显示
+    √          √          √
+    √          ×          √
+    ×          √          √(不显示PinName)
+    ×          ×          ×
+    
+    需要确定每个OutputPin的Linked属性；记录与每个OutputPin连接的InputPin集合。（已解决）
+    
+09-07-04
+
+1.  Addr、GID两个参数放在哪张数据表内(Cld_FCInput/Cld_FCOutput/Cld_FCParameter)？（已解决）
+        Addr在Cld_FCParameter表中，GID在Cld_FCInput表中
+        
+2.  Addr参数值的格式应为“15-15-255”（已解决）
+        GraphicsDocument 中的 GetAddr(string addr) 方法
+        
+3.  哪些块显示参数信息，显示哪些参数？（已解决）
+    普通块显示Num和Mode两个参数。
+    格式为：Num=&Num        只有Num参数
+            &Mode           只有Mode参数
+            Num=&Num,&Mode  两个参数都有
+            &Num 为Num参数的值。
+            &Mode 为Mode参数第一个"="号后的内容。
+            
+    I/O块：Addr，Cvt，……  （未解决，只输出了Addr）
+                    
+4.  页面大小无法确定。(代码已解决，数据库添加了相应字段)
+        
+5.  引脚值的类型(模拟量、开关量)无法确定，该值类型决定信号线的类型。（已解决）
+        BLL_Manager 中的 get_PinMeta(Meta_FCMaster meta_master, string pinname) 方法
+        
+        
+6.  1-38页面中，最左侧有两个块的位置过于偏左。(画面显示问题，翻译已检查过)
+
+
+2009-8-21
+Parameter表中 Value字段应该改名，关键字
+

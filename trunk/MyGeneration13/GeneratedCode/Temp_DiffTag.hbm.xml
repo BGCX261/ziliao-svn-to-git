@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Temp_DiffTag" table="Temp_DiffTag">
+
+		<id name="Objectid" column="ObjectID" type="String">
+			<generator class="assigned"/>
+		</id>
+		<property column="VdcsTag" type="String" name="m_VdcsTag" length="50" />
+		<property column="DbfTag" type="String" name="m_DbfTag" length="50" />
+		<property column="dbfDataType" type="String" name="m_dbfDataType" length="50" />
+		<property column="dbfDesc" type="String" name="m_dbfDesc" length="0" />
+		
+	</class>
+</hibernate-mapping>

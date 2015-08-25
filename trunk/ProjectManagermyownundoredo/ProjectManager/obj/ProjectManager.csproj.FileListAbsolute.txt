@@ -1,0 +1,135 @@
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\ProjectManager.exe
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\ProjectManager.pdb
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ResolveAssemblyReference.cache
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.Properties.Resources.resources
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.csproj.GenerateResource.Cache
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.exe
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.pdb
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\NHibernate.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\log4net.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\Iesi.Collections.dll
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.hibernate_config.xml
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\hibernate_config.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Prj_Controller.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Prj_Document.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Prj_Network.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Prj_Sheet.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Prj_Unit.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Prj_Project.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.Form1.resources
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_Constant.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_FCBlock.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_FCInput.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_FCOutput.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_FCParameter.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_Graphic.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_Signal.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Meta_FCDetail.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Meta_FCMaster.hbm.xml
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\Dejavu.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\NHibernate.JetDriver.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\Castle.Core.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\Castle.DynamicProxy2.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\LinFu.DynamicProxy.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\NHibernate.ByteCode.Castle.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\antlr.runtime.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\Antlr3.Runtime.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\Common.Logging.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\NHibernate.ByteCode.LinFu.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\NHibernate.ByteCode.Spring.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\NHibernate.DomainModel.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\NHibernate.Test.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\nunit.core.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\nunit.framework.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\Spring.Aop.dll
+D:\weiyuanke\ProjectManager\ProjectManager\bin\Debug\Spring.Core.dll
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.exe
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.pdb
+E:\ProjectManager\ProjectManager\bin\Debug\hibernate_config.xml
+E:\ProjectManager\ProjectManager\bin\Debug\ProjectManager.exe
+E:\ProjectManager\ProjectManager\bin\Debug\ProjectManager.pdb
+E:\ProjectManager\ProjectManager\bin\Debug\antlr.runtime.dll
+E:\ProjectManager\ProjectManager\bin\Debug\Antlr3.Runtime.dll
+E:\ProjectManager\ProjectManager\bin\Debug\Castle.Core.dll
+E:\ProjectManager\ProjectManager\bin\Debug\Castle.DynamicProxy2.dll
+E:\ProjectManager\ProjectManager\bin\Debug\Common.Logging.dll
+E:\ProjectManager\ProjectManager\bin\Debug\Dejavu.dll
+E:\ProjectManager\ProjectManager\bin\Debug\Iesi.Collections.dll
+E:\ProjectManager\ProjectManager\bin\Debug\LinFu.DynamicProxy.dll
+E:\ProjectManager\ProjectManager\bin\Debug\log4net.dll
+E:\ProjectManager\ProjectManager\bin\Debug\NHibernate.ByteCode.Castle.dll
+E:\ProjectManager\ProjectManager\bin\Debug\NHibernate.ByteCode.LinFu.dll
+E:\ProjectManager\ProjectManager\bin\Debug\NHibernate.ByteCode.Spring.dll
+E:\ProjectManager\ProjectManager\bin\Debug\NHibernate.dll
+E:\ProjectManager\ProjectManager\bin\Debug\NHibernate.DomainModel.dll
+E:\ProjectManager\ProjectManager\bin\Debug\NHibernate.JetDriver.dll
+E:\ProjectManager\ProjectManager\bin\Debug\NHibernate.Test.dll
+E:\ProjectManager\ProjectManager\bin\Debug\nunit.core.dll
+E:\ProjectManager\ProjectManager\bin\Debug\nunit.framework.dll
+E:\ProjectManager\ProjectManager\bin\Debug\Spring.Aop.dll
+E:\ProjectManager\ProjectManager\bin\Debug\Spring.Core.dll
+E:\ProjectManager\ProjectManager\obj\Debug\ResolveAssemblyReference.cache
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.hibernate_config.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_Constant.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_FCBlock.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_FCInput.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_FCOutput.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Prj_Controller.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Prj_Document.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Prj_Network.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Prj_Project.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Prj_Sheet.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Prj_Unit.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_FCParameter.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_Graphic.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Cld_Signal.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Meta_FCDetail.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.DAL.Meta_FCMaster.hbm.xml
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.Properties.Resources.resources
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.Form1.resources
+E:\ProjectManager\ProjectManager\obj\Debug\ProjectManager.csproj.GenerateResource.Cache
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.exe
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.pdb
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.hibernate_config.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Cld_Constant.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Cld_FCBlock.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Cld_FCInput.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Cld_FCOutput.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Prj_Controller.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Prj_Document.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Prj_Network.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Prj_Project.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Prj_Sheet.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Prj_Unit.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Cld_FCParameter.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Cld_Graphic.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Cld_Signal.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Meta_FCDetail.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.DAL.Meta_FCMaster.hbm.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\TDK.Core.Logic.Properties.Resources.resources
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\ProjectManager.Form1.resources
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\obj\Debug\ProjectManager.csproj.GenerateResource.Cache
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\hibernate_config.xml
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\TDK.Core.Logic.exe
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\TDK.Core.Logic.pdb
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\antlr.runtime.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\Antlr3.Runtime.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\Castle.Core.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\Castle.DynamicProxy2.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\Common.Logging.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\Dejavu.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\Iesi.Collections.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\LinFu.DynamicProxy.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\log4net.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\NHibernate.ByteCode.Castle.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\NHibernate.ByteCode.LinFu.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\NHibernate.ByteCode.Spring.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\NHibernate.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\NHibernate.DomainModel.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\NHibernate.JetDriver.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\NHibernate.Test.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\nunit.core.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\nunit.framework.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\Spring.Aop.dll
+C:\Documents and Settings\lyh\桌面\ProjectManager\ProjectManager\bin\Debug\Spring.Core.dll

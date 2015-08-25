@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Temp_AlgName" table="Temp_AlgName">
+
+		<!-- could not find a primary key for this table/view. NHibernate requires an 'id' element, so you'll have to define one manually. -->
+		<property column="AlgName" type="String" name="m_AlgName" length="50" />
+		<property column="FuncName" type="String" name="m_FuncName" length="50" />
+		<property column="BlockPointX" type="String" name="m_BlockPointX" length="50" />
+		<property column="BlockPointY" type="String" name="m_BlockPointY" length="50" />
+		
+	</class>
+</hibernate-mapping>

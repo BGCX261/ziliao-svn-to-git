@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Temp_Signal" table="Temp_Signal">
+
+		<!-- could not find a primary key for this table/view. NHibernate requires an 'id' element, so you'll have to define one manually. -->
+		<property column="DocumentName" type="String" name="m_DocumentName" length="100" />
+		<property column="ControllerAddress" type="String" name="m_ControllerAddress" length="50" />
+		<property column="EntityColor" type="String" name="m_EntityColor" length="50" />
+		<property column="EntityPoint" type="String" name="m_EntityPoint" length="50" />
+		<property column="EntityLayer" type="String" name="m_EntityLayer" length="50" />
+		<property column="EntityBelongTo" type="String" name="m_EntityBelongTo" length="50" />
+		
+	</class>
+</hibernate-mapping>

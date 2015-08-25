@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Temp_DiffAlarm" table="Temp_DiffAlarm">
+
+		<id name="Name" column="name" type="String">
+			<generator class="assigned"/>
+		</id>
+		<property column="VdcsHAL1" type="String" name="m_VdcsHAL1" length="50" />
+		<property column="VdcsLAL1" type="String" name="m_VdcsLAL1" length="50" />
+		<property column="CsvHAL1" type="String" name="m_CsvHAL1" length="50" />
+		<property column="CsvLAL1" type="String" name="m_CsvLAL1" length="50" />
+		
+	</class>
+</hibernate-mapping>

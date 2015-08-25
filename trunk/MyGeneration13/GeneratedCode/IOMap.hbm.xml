@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="IOMap" table="IOMap">
+
+		<id name="KksCode" column="KKSCode" type="String">
+			<generator class="assigned"/>
+		</id>
+		<property column="IOMapName" type="String" name="m_IOMapName" length="50" />
+		
+	</class>
+</hibernate-mapping>

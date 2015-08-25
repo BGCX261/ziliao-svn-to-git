@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="TDK.Core.Logic.DAL.Prj_Unit,TDK.Core.Logic" table="Prj_Unit" lazy="true">
+
+		<id name="ID" column="ID" type="Int32" unsaved-value="-1">
+			<generator class="increment"/>
+		</id>
+		<property column="UnitAddress" type="String" name="UnitAddress" length="50" />
+		<property column="UnitName" type="String" name="UnitName" length="50" />
+		<property column="NetworkAddress" type="String" name="NetworkAddress" length="50" />
+		<property column="Description" type="String" name="Description" length="100" />
+		<property column="Prj_Network_ID" type="Int32" name="Prj_Network_ID" not-null="true" />
+		
+	</class>
+</hibernate-mapping>

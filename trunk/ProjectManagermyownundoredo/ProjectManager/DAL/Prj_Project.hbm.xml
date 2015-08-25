@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="TDK.Core.Logic.DAL.Prj_Project,TDK.Core.Logic" table="Prj_Project" lazy="true">
+
+		<id name="ID" column="ID" type="Int32" unsaved-value="-1">
+			<generator class="increment"/>
+		</id>
+		<property column="ProjectName" type="String" name="ProjectName" not-null="true" length="50" />
+		<property column="CreateTime" type="DateTime" name="CreateTime" />
+		<property column="ModifyTime" type="DateTime" name="ModifyTime" />
+		<property column="Type" type="String" name="Type" length="50" />
+		<property column="BlockMaxNumber" type="String" name="BlockMaxNumber" length="50" />
+		<property column="PinMaxNumber" type="String" name="PinMaxNumber" length="50" />
+		<property column="ProjectPath" type="String" name="ProjectPath" length="50" />
+		<property column="VarSystemVersion" type="String" name="VarSystemVersion" length="50" />
+		<property column="AlarmVersion" type="String" name="AlarmVersion" length="50" />
+		
+	</class>
+</hibernate-mapping>

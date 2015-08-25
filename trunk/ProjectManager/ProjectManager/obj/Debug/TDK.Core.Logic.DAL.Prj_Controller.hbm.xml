@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="TDK.Core.Logic.DAL.Prj_Controller,TDK.Core.Logic" table="Prj_Controller" lazy="true">
+
+		<id name="ID" column="ID" type="Int32" unsaved-value="-1">
+			<generator class="increment"/>
+		</id>
+		<property column="ControllerAddress" type="String" name="ControllerAddress" length="50" />
+		<property column="ControllerName" type="String" name="ControllerName" length="50" />
+		<property column="CreateTime" type="DateTime" name="CreateTime" />
+		<property column="ModifyTime" type="DateTime" name="ModifyTime" />
+		<property column="Description" type="String" name="Description" length="100" />
+		<property column="Version" type="String" name="Version" length="100" />
+		<property column="TranslatorResult" type="String" name="TranslatorResult" length="50" />
+		<property column="Prj_Unit_ID" type="Int32" name="Prj_Unit_ID" not-null="true" />
+		<property column="Sequence" type="Int32" name="Sequence" />
+		
+	</class>
+</hibernate-mapping>

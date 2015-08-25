@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Prj_Project" table="Prj_Project">
+
+		<id name="ProjectName" column="ProjectName" type="String">
+			<generator class="assigned"/>
+		</id>
+		<property column="CreateTime" type="DateTime" name="m_CreateTime" />
+		<property column="ModifyTime" type="DateTime" name="m_ModifyTime" />
+		<property column="Type" type="String" name="m_Type" length="50" />
+		<property column="BlockMaxNumber" type="String" name="m_BlockMaxNumber" length="50" />
+		<property column="PinMaxNumber" type="String" name="m_PinMaxNumber" length="50" />
+		<property column="ProjectPath" type="String" name="m_ProjectPath" length="50" />
+		<property column="VarSystemVersion" type="String" name="m_VarSystemVersion" length="50" />
+		<property column="AlarmVersion" type="String" name="m_AlarmVersion" length="50" />
+		
+	</class>
+</hibernate-mapping>

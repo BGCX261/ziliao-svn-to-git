@@ -1,0 +1,353 @@
+﻿##|TYPE Template
+##|UNIQUEID d1f223d0-0bc6-4357-9777-5001a0fe4fb1
+##|TITLE DDL NHibernate Relation Mapping
+##|NAMESPACE NHibernate
+##|SOURCE_TYPE Source
+##|OUTPUT_LANGUAGE C#
+##|GUI_ENGINE .Net Script
+##|GUI_LANGUAGE C#
+##|GUI_BEGIN
+<%#REFERENCE System.Windows.Forms.dll %>
+<%#NAMESPACE System, System.Text, System.Collections, Zeus, Zeus.UserInterface, Zeus.DotNetScript, Microsoft.Win32 %>
+
+public class GeneratedGui : DotNetScriptGui
+{
+	public GeneratedGui(ZeusGuiContext context) : base(context) {}
+	
+	
+	GuiTextBox classNamespace;
+	GuiTextBox txtAssembly;
+
+	public override void Setup()
+	{
+		RegistryKey reg ;
+		reg = Registry.CurrentUser;
+		reg = reg.CreateSubKey("Software");
+		reg = reg.CreateSubKey("DDLLY");
+		reg = reg.CreateSubKey("NHibernateScript");
+
+		//Posiciona a pasta no registro
+		reg = Registry.CurrentUser;
+		reg = reg.OpenSubKey("Software\\DDLLY\\NHibernateScript");
+	
+		ui.Title = "DDL NHibernate Relation Mapping";
+		ui.Width = 650;
+		ui.Height = 320;
+
+		GuiLabel label2 = ui.AddLabel ("label2", "命名空间: ",  "命名空间");
+		label2.Width = 200;
+		classNamespace = ui.AddTextBox("classNamespace", "Business.Data", "命名空间");				
+		classNamespace.Width = 200;
+		classNamespace.Text = (string)reg.GetValue("classNamespace", "NHibernate");
+			
+		GuiLabel label20 = ui.AddLabel ("label20", "程序集",  "程序集");
+		label20.Width = 200;
+		label20.Top = label2.Top;
+		label20.Left = label2.Left + 220;
+		txtAssembly = ui.AddTextBox("txtAssembly", "Business.Data", "程序集");
+		txtAssembly.Width = 200;
+		txtAssembly.Top = classNamespace.Top;
+		txtAssembly.Left = classNamespace.Left + 220;
+		txtAssembly.Text = (string)reg.GetValue("Assembly", "NHibernate");
+			
+        GuiLabel label3 = ui.AddLabel ("label3", "私有成员前缀: ",  "私有成员前缀:.");
+		label3.Width = 120;
+		label3.Top = label2.Top;
+		label3.Left = label2.Left + 450;
+		GuiTextBox memberPrefix = ui.AddTextBox("memberPrefix", "m_", "");
+		memberPrefix.Width = 120;
+		memberPrefix.Top = classNamespace.Top;
+		memberPrefix.Left = classNamespace.Left + 450;
+             
+		// Setup Database selection combobox.
+		GuiLabel label4 = ui.AddLabel("label4", "选择一个数据库:", "选择一个数据库.");
+		label4.Width = 250;
+		GuiComboBox chooseDatabase = ui.AddComboBox("chooseDatabase", "选择一个数据库.");
+		chooseDatabase.Width = 250;
+			
+		GuiLabel label7 = ui.AddLabel("label7", "选择表:", "选择表.");
+		label7.Top = chooseDatabase.Top + 20;
+		GuiComboBox chooseTable1 = ui.AddComboBox("chooseTable1", "选择表");
+		chooseTable1.Width=250;
+		GuiComboBox chooseTable2 = ui.AddComboBox("chooseTable2", "选择表");
+		chooseTable2.Width=250;
+		chooseTable2.Left=chooseTable1.Left+300;
+		chooseTable2.Top=chooseTable1.Top;
+			
+		GuiLabel label10 = ui.AddLabel("label10", "选择关系:", "选择关系.");
+		label10.Width=250;
+		GuiComboBox chooseRelation = ui.AddComboBox("chooseRelation", "选择关系.");
+		chooseRelation.Width=250;
+		Hashtable relationTable=new Hashtable();
+		relationTable.Add("one-to-many","one-to-many");
+		relationTable.Add("many-to-many","many-to-many");
+		relationTable.Add("one-to-one","one-to-one");
+		relationTable.Add("one-to-many1","单向one-to-many");
+		relationTable.Add("one-to-one1","另一种one-to-one");
+		chooseRelation.BindData(relationTable);
+			
+		GuiLabel label30 = ui.AddLabel("label30", "中间表:", "中间表");
+		label30.Top=label10.Top;
+		label30.Left=310;
+		label30.Width=250;
+		GuiComboBox chooseTable3 = ui.AddComboBox("chooseTable3", "Select tables.");
+		chooseTable3.Width=250;
+		chooseTable3.Left=label10.Left+300;
+	
+			
+		// Attach the onchange event to the cmbDatabases control.
+		setupDatabaseDropdown(chooseDatabase);
+		chooseDatabase.AttachEvent("onchange", "chooseDatabase_onchange");
+		
+		GuiButton btnSave = ui.AddButton("btnSave", "Save", "保存改变");
+        btnSave.AttachEvent("onclick", "btnSave_onclick");
+			
+		ui.ShowGui = true;
+	}
+	
+	public void setupDatabaseDropdown(GuiComboBox Databases)
+	{	
+		if (MyMeta.IsConnected)
+		{
+			Databases.BindData(MyMeta.Databases);
+			if (MyMeta.DefaultDatabase != null) 
+			{
+				Databases.SelectedValue = MyMeta.DefaultDatabase.Alias;
+				bindTables(Databases.SelectedValue);
+					//bindViews(Databases.SelectedValue);
+			}
+		}
+	}
+	
+	public void bindTables(string sDatabase)
+	{
+		//int count = 0;
+		GuiComboBox chooseTable1 = ui["chooseTable1"] as GuiComboBox;
+		GuiComboBox chooseTable2 = ui["chooseTable2"] as GuiComboBox;
+		GuiComboBox chooseTable3 = ui["chooseTable3"] as GuiComboBox;
+		IDatabase db = MyMeta.Databases[sDatabase];
+		chooseTable1.BindData(db.Tables);
+		chooseTable2.BindData(db.Tables);
+		chooseTable3.BindData(db.Tables);
+	}
+	
+	public void chooseDatabase_onchange(GuiComboBox control)
+	{
+		//int count = 0;
+		GuiComboBox cmbDatabases = ui["chooseDatabase"] as GuiComboBox;
+		bindTables(cmbDatabases.SelectedText);
+	}
+	
+		public void btnSave_onclick(GuiButton btnSave)
+	{
+		RegistryKey reg ;
+		reg = Registry.CurrentUser;
+		reg = reg.CreateSubKey("Software");
+		reg = reg.CreateSubKey("DDLLY");
+		reg = reg.CreateSubKey("NHibernateScript");
+		
+		reg.SetValue("classNamespace", classNamespace.Text);
+		reg.SetValue("Assembly", txtAssembly.Text);
+	}
+}
+##|GUI_END
+##|BODY_MODE Markup
+##|BODY_ENGINE .Net Script
+##|BODY_LANGUAGE C#
+##|BODY_TAG_START <%
+##|BODY_TAG_END %>
+##|BODY_BEGIN
+<%#REFERENCE DDLLY.MyGenerationTemplate.dll %><%#NAMESPACE DDLLY.MyGenerationTemplate%><%
+public class GeneratedTemplate : DDLNHibernateDotNetScriptTemplate
+{
+	private string _outputBuffer;
+	private string _selectTable1;
+	private string _selectTable2;
+	private string _selectTable3;
+	private string _className1;
+	private string _className2;
+	private string _primaryKeyColumn1;
+	private string _primaryKeyColumn2;
+	private string _selectedRelation;
+	private string _dbName;
+	private string _nameSpace;
+	private string _assembly;
+	
+	public GeneratedTemplate(ZeusContext context) : base(context) {}
+
+	public override void Render()
+	{
+		_dbName = input["chooseDatabase"].ToString();
+		_selectTable1 = input["chooseTable1"].ToString();
+		_selectTable2 = input["chooseTable2"].ToString();
+		_selectTable3 = input["chooseTable3"].ToString();
+		//_className1=TableNameToClassName(_selectTable1);
+		_className1=(_selectTable1);
+		_className2=(_selectTable2);
+		_primaryKeyColumn1 = MyMeta.Databases[_dbName].Tables[_selectTable1].PrimaryKeys[0].Name;
+		_primaryKeyColumn2=MyMeta.Databases[_dbName].Tables[_selectTable2].PrimaryKeys[0].Name;
+		_selectedRelation=input["chooseRelation"].ToString();
+		_nameSpace = input["classNamespace"].ToString();
+		_prefix = input["memberPrefix"].ToString();
+		_assembly=input["txtAssembly"].ToString();				
+		
+		if (_selectedRelation=="one-to-many")
+		{
+			generateOneToMany();
+		}
+		if(_selectedRelation=="many-to-many")
+		{
+			generateManyToMany();
+		}
+		if(_selectedRelation=="one-to-one")
+		{
+			generateOneToOne();
+		}
+		if(_selectedRelation=="one-to-many1")
+		{
+			generateOneToMany1();
+		}
+		if(_selectedRelation=="one-to-one1")
+		{
+			generateOneToOne1();
+		}
+	
+	}
+	
+	private void generateOneToMany()
+	{
+		%>
+//<%=_className1%>
+<bag name="<%=_className2%>s" cascade="all" lazy="true" inverse="true">
+	<key column="<%=_primaryKeyColumn1%>"></key>
+	<one-to-many class="<%=_nameSpace%>.<%=_className2%>,<%=_assembly%>"></one-to-many>
+</bag>
+
+private IList <%=ToVariableName(_className2)%>=new ArrayList();
+
+public IList <%=_className2%>s
+{
+	get{return <%=ToVariableName(_className2)%>;}
+	set{<%=ToVariableName(_className2)%>=value;}
+}
+
+//<%=_className2%>
+<many-to-one name="<%=_className1%>" column="<%=_primaryKeyColumn1%>" 
+	class="<%=_nameSpace%>.<%=_className1%>,<%=_assembly%>" />
+
+private <%=_className1%> <%=ToVariableName(_className1)%>;
+
+public <%=_className1%> <%=_className1%>
+{
+	get{return <%=ToVariableName(_className1)%>;}
+	set{<%=ToVariableName(_className1)%>=value;}
+}
+		<%	
+	}
+	
+	private void generateManyToMany()
+	{
+	%>
+		//<%=_className1%>
+		<bag name="<%=_className2%>s" table="<%=_selectTable3%>" lazy="true" inverse="true">
+			<key column="<%=_primaryKeyColumn1%>"></key>
+			<many-to-many class="<%=_nameSpace%>.<%=_className2%>,<%=_assembly%>" column="<%=_primaryKeyColumn2%>"></many-to-many>
+		</bag>	
+		
+		private IList <%=ToVariableName(_className2)%>s=new ArrayList();
+		
+		public IList <%=_className2%>s
+		{
+			get{return <%=ToVariableName(_className2)%>s;}
+			set{<%=ToVariableName(_className2)%>s=value;}
+		}
+		
+		//<%=_className2%>
+		<bag name="<%=_className1%>s" table="<%=_selectTable3%>" lazy="true">
+			<key column="<%=_primaryKeyColumn2%>"></key>
+			<many-to-many class="<%=_nameSpace%>.<%=_className1%>,<%=_assembly%>" column="<%=_primaryKeyColumn1%>"></many-to-many>
+		</bag>	
+		
+		private IList <%=ToVariableName(_className1)%>s=new ArrayList();
+		
+		public IList <%=_className1%>s
+		{
+			get{return <%=ToVariableName(_className1)%>s;}
+			set{<%=ToVariableName(_className1)%>s=value;}
+		}
+		
+	<%
+	}
+	
+	private void generateOneToOne()
+	{
+	%>  
+		//<%=_className1%>
+		<one-to-one name="<%=_className2%>" class="<%=_nameSpace%>.<%=_className2%>,<%=_assembly%>" cascade="all"></one-to-one>
+		
+		private <%=_className2%> <%=ToVariableName(_className2)%>;
+		public <%=_className2%> <%=_className2%>
+		{
+			get{return <%=ToVariableName(_className2)%>;}
+			set{<%=ToVariableName(_className2)%>=value;}
+		}
+
+		//<%=_className2%>
+		<one-to-one name="<%=_className1%>" class="<%=_nameSpace%>.<%=_className1%>,<%=_assembly%>" constrained="true"></one-to-one>
+		
+		private <%=_className1%> <%=ToVariableName(_className1)%>;
+		public <%=_className1%> <%=_className1%>
+		{
+			get{return <%=ToVariableName(_className1)%>;}
+			set{<%=ToVariableName(_className1)%>=value;}
+		}
+		
+		<generator class="foreign">
+			<param name="property"><%=_className1%></param>
+		</generator>
+	<%
+	}
+	
+	private void generateOneToOne1()
+	{
+	%>
+		//<%=_className1%>
+		<one-to-one name="<%=_className2%>" class="<%=_nameSpace%>.<%=_className2%>,<%=_assembly%>" cascade="all"></one-to-one>
+		
+		private <%=_className2%> <%=ToVariableName(_className2)%>;
+		public <%=_className2%> <%=_className2%>
+		{
+			get{return <%=ToVariableName(_className2)%>;}
+			set{<%=ToVariableName(_className2)%>=value;}
+		}
+		
+		//<%=_className2%>
+		<many-to-one name="<%=_className1%>" class="<%=_nameSpace%>.<%=_className1%>,<%=_assembly%>" column="<%=_primaryKeyColumn1%>" unique="true"></one-to-one>
+
+	
+	<%
+	}
+	
+	private void generateOneToMany1()
+	{
+		%>
+		//<%=_className1%>
+		<bag name="<%=_className2%>s" cascade="all" lazy="true">
+			<key column="<%=_primaryKeyColumn1%>"></key>
+			<one-to-many class="<%=_nameSpace%>.<%=_className2%>,<%=_assembly%>"></one-to-many>
+		</bag>
+		
+		private IList <%=ToVariableName(_className2)%>=new ArrayList();
+		
+		public IList <%=_className2%>s
+		{
+			get{return <%=ToVariableName(_className2)%>;}
+			set{<%=ToVariableName(_className2)%>=value;}
+		}
+		<%
+	}
+	
+	
+}
+%>
+##|BODY_END

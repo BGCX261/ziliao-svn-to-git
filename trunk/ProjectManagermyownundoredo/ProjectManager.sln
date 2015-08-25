@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManager", "ProjectManager\ProjectManager.csproj", "{7409DDC0-BA3B-48C6-997F-CBF12E4A300A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xinhua_signal_symbol", "xinhua_signal_symbol\xinhua_signal_symbol.csproj", "{91625D49-353A-40C8-9FEA-EC8552B156C6}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 3
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ProjectManager\\ProjectManager.csproj
+		SccLocalPath1 = .
+		SccProjectFilePathRelativizedFromConnection1 = ProjectManager\\
+		SccProjectUniqueName2 = xinhua_signal_symbol\\xinhua_signal_symbol.csproj
+		SccLocalPath2 = .
+		SccProjectFilePathRelativizedFromConnection2 = xinhua_signal_symbol\\
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7409DDC0-BA3B-48C6-997F-CBF12E4A300A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7409DDC0-BA3B-48C6-997F-CBF12E4A300A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7409DDC0-BA3B-48C6-997F-CBF12E4A300A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7409DDC0-BA3B-48C6-997F-CBF12E4A300A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91625D49-353A-40C8-9FEA-EC8552B156C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91625D49-353A-40C8-9FEA-EC8552B156C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91625D49-353A-40C8-9FEA-EC8552B156C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91625D49-353A-40C8-9FEA-EC8552B156C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="TDK.Core.Logic.DAL.Cld_Signal,TDK.Core.Logic" table="Cld_Signal" lazy="true">
+
+		<id name="ID" column="ID" type="Int32" unsaved-value="-1">
+			<generator class="increment"/>
+		</id>
+		<property column="Name" type="String" name="Name" length="50" />
+		<property column="SignalType" type="String" name="SignalType" length="50" />
+		<property column="EntityBelongTo" type="String" name="EntityBelongTo" length="50" />
+		<property column="Data" type="String" name="Data" length="50" />
+		<property column="Prj_Controller_ID" type="Int32" name="Prj_Controller_ID" not-null="true" />
+		<property column="Prj_Document_ID" type="Int32" name="Prj_Document_ID" not-null="true" />
+		<property column="Prj_Sheet_ID" type="Int32" name="Prj_Sheet_ID" not-null="true" />
+		
+	</class>
+</hibernate-mapping>

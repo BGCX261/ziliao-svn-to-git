@@ -1,0 +1,1797 @@
+﻿##|TYPE Template
+##|UNIQUEID 8d380649-7daf-4eaf-8e2a-1f9f4f2b0e04
+##|TITLE DDL NHibernate Object Mapping
+##|NAMESPACE NHibernate
+##|SOURCE_TYPE Source
+##|OUTPUT_LANGUAGE C#
+##|COMMENTS_BEGIN
+This is an update of k-dub's template.
+Changes:
+Compatible with nHibernate 1.0.2
+Created a save button, to save Namespace, prefix and output path.
+Suport to composite keys (Experimental).
+Can use null or new in Constructor.
+TODO: Foreign composite key
+Fixed: null string test in properties
+Now everything is being saved.
+##|COMMENTS_END
+##|GUI_ENGINE .Net Script
+##|GUI_LANGUAGE C#
+##|GUI_BEGIN
+<%#REFERENCE System.Windows.Forms.dll %>
+<%#NAMESPACE System, System.Text, System.Collections, Zeus, Zeus.UserInterface, Zeus.DotNetScript, Microsoft.Win32 %>
+
+public class GeneratedGui : DotNetScriptGui
+{
+	public GeneratedGui( ZeusGuiContext context ) : base( context ) {}
+
+	GuiTextBox classNamespace;
+	GuiTextBox txtAssembly;
+	GuiTextBox outputPath;
+	GuiTextBox memberPrefix;
+	GuiCheckBox chkUseNull;
+	//GuiCheckBox chkDontCreateFK;
+	GuiCheckBox chkEqualsHashCode;
+	GuiCheckBox chkReadOnly;
+	GuiCheckBox chkClass;
+	GuiCheckBox chkMapping;
+	GuiCheckBox chkLazyClass;
+	GuiCheckBox chkEnableNullTypes;
+	
+	public override void Setup()
+	{
+		RegistryKey reg ;
+		reg = Registry.CurrentUser;
+		reg = reg.CreateSubKey("Software");
+		reg = reg.CreateSubKey("DDLLY");
+		reg = reg.CreateSubKey("NHibernateScript");
+	
+		if ( !input.Contains( "chooseTables" ) || !input.Contains( "txtPath" ) ||
+				( !input.Contains( "chkClass" ) && !input.Contains( "chkNaming" ) ) )
+		{
+			ui.Title = "DDL NHibernate Object Mapping";
+			ui.Width = 600;
+			ui.Height = 550;
+	
+			// Grab default output path
+			string sOutputPath = "";
+			
+			if( input.Contains( "defaultOutputPath" ) ) 
+			{
+				sOutputPath = input["defaultOutputPath"].ToString();
+			}
+
+			//Posiciona a pasta no registro
+			reg = Registry.CurrentUser;
+			reg = reg.OpenSubKey("Software\\DDLLY\\NHibernateScript");
+
+			// Setup Folder selection input control.
+			GuiLabel label1 = ui.AddLabel( "label1", "输出路径:", "输出路径" );
+			label1.Width = 200;
+			outputPath = ui.AddTextBox( "outputPath", sOutputPath, "输出路径" );
+			outputPath.Width = 450;
+			outputPath.Text = (string)reg.GetValue("outputPath", sOutputPath);
+			
+			GuiFilePicker selectPath = ui.AddFilePicker( "selectPath", "选择路径", "选择路径", "outputPath", true );
+			selectPath.Top = outputPath.Top;
+			selectPath.Width = 100;
+			selectPath.Left = outputPath.Left + outputPath.Width + 20;
+			
+			GuiLabel label2 = ui.AddLabel( "label2", "命名空间: ",  "命名空间" );
+			label2.Top = outputPath.Top + 30;
+			label2.Width = 265;
+			classNamespace = ui.AddTextBox( "classNamespace", "NHibernate", "命名空间" );				
+			classNamespace.Top = label2.Top + 20;
+			classNamespace.Width = label2.Width;
+            classNamespace.Text = (string)reg.GetValue("classNamespace", "NHibernate");
+			
+            GuiLabel label3 = ui.AddLabel( "label3", "私有成员前缀: ", "私有成员前缀" );
+			label3.Width = 80;
+			label3.Top = classNamespace.Top + 30;
+			label3.Left = label2.Left; //Width + 20;
+			memberPrefix = ui.AddTextBox( "memberPrefix", "m_", "" );
+			memberPrefix.Width = 80;
+			memberPrefix.Top = label3.Top + 20;
+			memberPrefix.Left = label2.Left;
+			memberPrefix.Text = (string)reg.GetValue("memberPrefix", "m_");
+			
+			GuiLabel label20 = ui.AddLabel ("label20", "程序集:",  "程序集");
+			label20.Width = 160;
+			label20.Top = classNamespace.Top + 30;
+			label20.Left = label2.Left + 85;
+			txtAssembly = ui.AddTextBox("txtAssembly", "Business.Data", "程序集");
+			txtAssembly.Width = 180;
+			txtAssembly.Top = label3.Top + 20;
+			txtAssembly.Left = classNamespace.Left + 85;
+			txtAssembly.Text = (string)reg.GetValue("Assembly", "NHibernate");
+			
+			// Setup Database selection combobox.
+			GuiLabel label4 = ui.AddLabel( "label4", "选择一个数据库:", "选择一个数据库" );
+			label4.Width = label2.Width;
+			GuiComboBox chooseDatabase = ui.AddComboBox( "chooseDatabase", "选择一个数据库" );
+			chooseDatabase.Top = label4.Top + 20;
+			chooseDatabase.Width = label2.Width;
+			
+			GuiLabel label5 = ui.AddLabel( "label5", "选项:", "选项" );
+			label5.Width = 150;
+			label5.Top = label2.Top;
+			label5.Left = label2.Width + 20;
+
+			chkClass = ui.AddCheckBox( "chkClass", "创建类文件", getBool(reg.GetValue("Class", "true")), "创建类文件(*.cs)" );
+			chkClass.Width = 150;
+			chkClass.Top = label5.Top + 20;
+			chkClass.Left = label5.Left;
+			
+			chkMapping = ui.AddCheckBox( "chkMapping", "创建XML映射文件", getBool(reg.GetValue("Mapping", "true")), "创建XML映射文件 (*.hbm.xml)" );
+			chkMapping.Width = 150;
+			chkMapping.Top = chkClass.Top + 20;
+			chkMapping.Left = chkClass.Left;
+
+			chkReadOnly = ui.AddCheckBox( "chkReadOnly", "只读访问", getBool(reg.GetValue("ReadOnly", "false")), "创建只读访问对象和映射" );
+			chkReadOnly.Width = 130;
+			chkReadOnly.Top = chkClass.Top;
+			chkReadOnly.Left = chkClass.Left + chkClass.Width + 20;
+
+			chkLazyClass = ui.AddCheckBox( "chkLazyClass", "启用Lazy类", getBool(reg.GetValue("LazyClass", "false")), "启用Lazy类" );
+			chkLazyClass.Width = 130;
+			chkLazyClass.Top = chkReadOnly.Top + 20;
+			chkLazyClass.Left = chkReadOnly.Left;
+
+			chkUseNull = ui.AddCheckBox( "chkUseNull", "在构造函数中使用Null", getBool(reg.GetValue("UseNull", "true")), "在构造函数中使用Null" );
+			chkUseNull.Width = 200;
+			chkUseNull.Top = chkMapping.Top + 20;
+			chkUseNull.Left = chkMapping.Left;
+	
+			/*
+			chkDontCreateFK = ui.AddCheckBox( "chkDontCreateFK", "不创建外键类引用", getBool(reg.GetValue("DontCreateFK", "true")), "不创建外键类引用" );
+			chkDontCreateFK.Width = 300;
+			chkDontCreateFK.Top = chkUseNull.Top + 20;
+			chkDontCreateFK.Left = chkMapping.Left;
+			*/
+			
+			chkEqualsHashCode = ui.AddCheckBox( "chkEqualsHashCode", "创建Equals和GetHashCode", getBool(reg.GetValue("EqualsHashCode", "true")), "创建Equals和GetHashCode" );
+			chkEqualsHashCode.Top = chkMapping.Top + 20;
+			chkEqualsHashCode.Left = chkMapping.Left;
+			chkEqualsHashCode.Width = chkUseNull.Width;
+			
+			chkEnableNullTypes = ui.AddCheckBox( "chkEnableNullTypes", "启用nullable类型", getBool(reg.GetValue("EnableNullTypes", "true")), "在.Net2.0中启用nullable类型" );
+			chkEnableNullTypes.Top = chkEqualsHashCode.Top + 20;
+			chkEnableNullTypes.Left = chkMapping.Left;
+			chkEnableNullTypes.Width = chkUseNull.Width;
+			
+
+
+			// Setup Tables selection multi-select listbox.
+			GuiLabel label7 = ui.AddLabel( "label7", "选择表:", "选择表" );
+			label7.Top = chooseDatabase.Top + 30;
+			label7.Width = label2.Width;
+			GuiListBox chooseTables = ui.AddListBox( "chooseTables", "选择表" );
+			chooseTables.Width = label7.Width;
+			chooseTables.Height = 200;
+			chooseTables.Top = label7.Top + 20;
+	
+			// Setup Views selection multi-select listbox.
+			GuiLabel label8 = ui.AddLabel( "label8", "选择视图", "选择视图" );
+			label8.Top = label7.Top ;
+			label8.Left =  label7.Width + 20;
+			label8.Width = chooseTables.Width;
+			GuiListBox chooseViews = ui.AddListBox( "chooseViews", "选择视图" );
+			chooseViews.Top = label8.Top + 20;
+			chooseViews.Left = label8.Left;
+			chooseViews.Width = label8.Width;
+			chooseViews.Height = chooseTables.Height;
+			
+			// Attach the onchange event to the cmbDatabases control.
+			setupDatabaseDropdown( chooseDatabase );
+			chooseDatabase.AttachEvent( "onchange", "chooseDatabase_onchange" );
+	
+	
+			GuiButton btnSave = ui.AddButton("btnSave", "Save", "保存改变");
+            btnSave.AttachEvent("onclick", "btnSave_onclick");
+
+	
+	
+	
+			ui.ShowGui = true;
+		}
+		else 
+		{
+			ui.ShowGui = false;
+		}
+	}
+	
+	public void setupDatabaseDropdown( GuiComboBox Databases )
+	{
+		try 
+		{	
+			if( MyMeta.IsConnected )
+			{
+				Databases.BindData( MyMeta.Databases );
+				if( MyMeta.DefaultDatabase != null ) 
+				{
+					Databases.SelectedValue = MyMeta.DefaultDatabase.Alias;
+					bindTables( Databases.SelectedValue );
+					bindViews( Databases.SelectedValue );
+				}
+			}
+		}
+		catch
+		{
+		}
+	}
+	
+	public void bindTables( string sDatabase )
+	{
+		int count = 0;
+	
+		GuiListBox lstTables = ui["chooseTables"] as GuiListBox;
+		
+		try 
+		{	
+			IDatabase db = MyMeta.Databases[sDatabase];
+			lstTables.BindData( db.Tables );
+		}
+		catch
+		{
+		}
+	}
+	
+	public void bindViews( string sDatabase )
+	{
+		int count = 0;
+	
+		GuiListBox lstViews = ui["chooseViews"] as GuiListBox;
+		
+		try 
+		{	
+			IDatabase db = MyMeta.Databases[sDatabase];
+			lstViews.BindData( db.Views );
+		}
+		catch
+		{
+		}
+	}
+	
+	public void chooseDatabase_onchange( GuiComboBox control )
+	{
+		int count = 0;
+
+		GuiComboBox cmbDatabases = ui["chooseDatabase"] as GuiComboBox;
+	
+		bindTables( cmbDatabases.SelectedText );
+		bindViews( cmbDatabases.SelectedText );
+	}
+	
+
+	private bool getBool(object valor){
+		return  Boolean.Parse((string) valor);
+	}
+	public void btnSave_onclick(GuiButton btnSave)
+	{
+		RegistryKey reg ;
+		reg = Registry.CurrentUser;
+		reg = reg.CreateSubKey("Software");
+		reg = reg.CreateSubKey("DDLLY");
+		reg = reg.CreateSubKey("NHibernateScript");
+		
+		reg.SetValue("classNamespace", classNamespace.Text);
+		reg.SetValue("Assembly", txtAssembly.Text);
+		reg.SetValue("EnableNullTypes", chkEnableNullTypes.Value.ToString());
+		reg.SetValue("outputPath", outputPath.Text);
+		reg.SetValue("memberPrefix", memberPrefix.Text);
+		//reg.SetValue("DontCreateFK", chkDontCreateFK.Value.ToString());
+		reg.SetValue("UseNull", chkUseNull.Value.ToString());
+		reg.SetValue("EqualsHashCode", chkEqualsHashCode.Value.ToString());
+		reg.SetValue("ReadOnly", chkReadOnly.Value.ToString());
+		reg.SetValue("Class", chkClass.Value.ToString());
+		reg.SetValue("Mapping", chkMapping.Value.ToString());
+		reg.SetValue("LazyClass", chkLazyClass.Value.ToString());
+		reg.SetValue("EnableNullTypes", chkEnableNullTypes.Value.ToString());
+	}
+	
+}
+##|GUI_END
+##|BODY_MODE Markup
+##|BODY_ENGINE .Net Script
+##|BODY_LANGUAGE C#
+##|BODY_TAG_START <%
+##|BODY_TAG_END %>
+##|BODY_BEGIN
+<%#REFERENCE DDLLY.MyGenerationTemplate.dll %><%#NAMESPACE System.IO, System.Text, System.Text.RegularExpressions, System.Collections.Generic,System.Globalization,DDLLY.MyGenerationTemplate %><%
+public class GeneratedTemplate : DDLNHibernateDotNetScriptTemplate
+{
+		//选中的表
+		private IList _selectedTables;
+		//选中的视图
+		private IList _selectedViews;
+		//数据库名
+		private string _dbName;
+		//表名
+		private string _tableName;
+		//类名
+		private string _className;
+		//输出路径
+		private string _exportPath;
+		//文件名
+		private string _fileName;
+		//命名空间
+		private string _nameSpace;
+		//创建类文件
+		private bool _createClassFiles;
+		//创建XML文件
+		private bool _createXmlFiles;
+		//只读访问
+		private bool _createReadOnly;
+		//创建Equals和HashCode
+		private bool _generateEqualsHashCode;
+		//在构造函数中使用Null
+		private bool _useNull;
+		//不创建外健引用
+		//private bool _dontCreateFK;
+		//使用Lazy类
+		private bool _enableLazyClass;
+		//启用nullable类型
+		private bool _enableNullTypes;
+		//程序集名称
+		private string _assembly;
+		
+		private ITable _workingTable;
+	
+		public GeneratedTemplate( ZeusContext context ) : base( context ) {}
+
+		public override void Render()
+		{
+			_dbName = input["chooseDatabase"].ToString();//数据库名字
+			_selectedTables = input["chooseTables"] as ArrayList;
+			_selectedViews = input["chooseViews"] as ArrayList;
+			_exportPath = input["outputPath"].ToString();
+			_nameSpace = input["classNamespace"].ToString();
+			_prefix = input["memberPrefix"].ToString();
+			_createClassFiles = (bool)input["chkClass"];
+			_createXmlFiles = (bool)input["chkMapping"];
+			_createReadOnly = (bool)input["chkReadOnly"];
+			_generateEqualsHashCode = (bool)input["chkEqualsHashCode"];
+			_useNull = (bool)input["chkUseNull"];
+			_enableLazyClass = (bool)input["chkLazyClass"];
+			_enableNullTypes = (bool)input["chkEnableNullTypes"];
+			_assembly=input["txtAssembly"].ToString();
+			
+			_NullSufix = (_enableNullTypes ? "?" : "");
+			
+			
+	
+			foreach( string _newTable in _selectedTables )
+			{
+				_workingTable = MyMeta.Databases[_dbName].Tables[_newTable];
+				_tableName = _workingTable.Name;
+				_className = _tableName ;
+				if( _createClassFiles )
+				{
+					GenerateClassFile( _workingTable.Columns );
+				}
+				if( _createXmlFiles )
+				{
+					GenerateMappingFile( _workingTable.Columns );
+				}
+				
+				Generate_manager_select(_className+"_Query.cs");
+			}
+			/*
+			foreach( string _newView in _selectedViews )
+			{
+				IView _workingView = MyMeta.Databases[_dbName].Views[_newView];
+				_tableName = _workingView.Alias.Replace( " ", "" );
+				_className = TableNameToClassName(_tableName);
+				if( _createClassFiles )
+				{
+					GenerateClassFile( _workingView.Columns );
+				}
+				if( _createXmlFiles )
+				{
+					GenerateMappingFile( _workingView.Columns );
+				}
+			}
+			*/
+			//生成projectManager
+			//Generate_manager_select("ProjectManager_Query.cs");
+			//Generate_manager_del("ProjectManager_Delete.cs");
+			//Generate_manager_other("ProjectManager_Other.cs");
+	}//end of render
+	
+	
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	private void Generate_manager_del(string filename){
+%>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using NHibernate;
+
+namespace <%=_assembly%>.DAL
+{
+	partial class ProjectCRUD
+	{
+		/************************************************************************/
+        /* 删除相关的操作                                                                     */
+        /************************************************************************/
+<%			//删除相关
+			foreach(string _newTable in _selectedTables){
+					ITable _workingTable = MyMeta.Databases[_dbName].Tables[_newTable];
+					_tableName = _workingTable.Alias;
+%>		
+		
+		#region 关于<%=_tableName%>的相关删除
+		/// <summary>
+        /// 从数据库中删除所有的<%=_tableName%>
+        /// </summary>
+        /// <returns></returns>
+		public bool DeleteAll_<%=_tableName%>(){
+			ITransaction transaction = session.BeginTransaction();
+			try{
+				this.session.Delete("from <%=_tableName%>");
+				transaction.Commit();
+				return true;
+			}catch(Exception ex){
+				transaction.Rollback();
+				throw ex;
+			}
+		}
+<%
+				foreach(IColumn field in _workingTable.Columns){
+					string fieldName=field.Alias;
+					string fieldType = ColumnToNHibernateType(field );
+					if(field.IsInForeignKey && !field.IsInPrimaryKey){
+						//纯粹的外键
+%>		/// <summary>
+        /// 根据特定的条件从数据库中删除所有的<%=_tableName%>
+        /// </summary>
+        /// <returns></returns>
+		public bool Delete<%=_tableName%>_By_<%=fieldName%>(<%=fieldType%> condition){
+			ITransaction transaction = session.BeginTransaction();
+			try{
+				string sql="delete  from <%=_tableName%> where <%=fieldName%> = " + condition;
+				session.CreateSQLQuery(sql).ExecuteUpdate();
+				transaction.Commit();
+				return true;
+			}catch(Exception e){
+				transaction.Rollback();
+				throw e;
+			}
+		}
+<%
+						continue;
+					}//end 纯粹的外键
+%>		/// <summary>
+        /// 根据特定的条件从数据库中删除所有的<%=_tableName%>
+        /// </summary>
+        /// <returns></returns>
+		public bool Delete<%=_tableName%>_By_<%=fieldName%>(<%=fieldType%> condition){
+			ITransaction transaction = session.BeginTransaction();
+			try{
+<%					//根据不同的数据类型，选择相应的函数参数
+					switch(fieldType){
+						case "string":
+						case "String":
+%>				this.session.Delete("select from <%=_tableName%>  c where c.<%=fieldName%> = '" + condition + "'");
+<%							break;
+						case "int":
+						case "float":
+						case "double":
+						case "short":
+%>				this.session.Delete("select from <%=_tableName%> c where c.<%=fieldName%> = " + condition );
+<%							break;
+						default:
+%>				this.session.Delete("select from <%=_tableName%> c where c.<%=fieldName%> = '" + condition + "'");
+<%							break;
+					}
+%>				transaction.Commit();
+				return true;
+			}catch(Exception ex){
+				transaction.Rollback();
+				throw ex;//抛出异常
+			}
+		}
+<%
+				}//end of foreach
+%>		#endregion
+<%
+			}//end of foreach
+%>	}
+}
+<%			output.saveEnc( Path.Combine( _exportPath, filename ), false ,Encoding.GetEncoding("utf-8") );
+			output.clear();		
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	private void Generate_manager_select(string filename){
+%>using System;
+using System.Collections.Generic;
+using System.Text;
+using NHibernate;
+
+namespace <%=_assembly%>.DAL
+{
+	public partial class <%=_className%>CRUD
+	{
+		/// <summary>
+        /// 访问数据库的接口
+        /// </summary>
+		public ISession session;
+		
+		/// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="session">nhibernate session</param>
+        public <%=_className%>CRUD(ISession session) {
+            this.session = session;
+			<%=_className%>.session = session;
+        }
+		
+<%			//查询相关
+		//foreach(string _newTable in _selectedTables){
+				//ITable _workingTable = MyMeta.Databases[_dbName].Tables[_newTable];
+				//_tableName = _workingTable.Alias;
+%>		
+		/// <summary>
+        /// 获得所有的<%=_tableName%>，返回一个对象的IList
+        /// </summary>
+        /// <returns>对象的IList的集合</returns>
+		public IList<<%=_tableName%>> Get<%=_tableName%>s(){
+			using(ITransaction transaction = session.BeginTransaction()){
+				try{
+					IList<<%=_tableName%>> result = this.session
+						.CreateQuery("select from <%=_tableName%> c").List<<%=_tableName%>>();
+					transaction.Commit();
+					return result;
+				}catch(Exception e){
+					transaction.Rollback();
+					throw e;
+				}
+			}
+		}
+		/// <summary>
+        /// 获得所有的<%=_tableName%>，返回一个对象的IList
+        /// </summary>
+		/// <param name="pagesize">页的大小</param>
+		/// <param name="pageindex">页的索引，从0开始</param>
+        /// <returns>对象的IList的集合</returns>
+		public IList<<%=_tableName%>> Get<%=_tableName%>s(int pagesize,int pageindex){
+			using(ITransaction transaction = session.BeginTransaction()){
+				try{
+					IList<<%=_tableName%>> result = this.session
+						.CreateQuery("select from <%=_tableName%> c").SetFirstResult((pageindex) * pagesize).SetMaxResults(pagesize)
+						.List<<%=_tableName%>>();
+					transaction.Commit();
+					return result;
+				}catch(Exception e){
+					transaction.Rollback();
+					throw e;
+				}
+			}
+		}
+		/// <summary>
+        /// 返回符合条件的对象的个数
+        /// </summary>
+        /// <returns>对象的个数</returns>
+		public int Count<%=_tableName%>s(){
+			using(ITransaction transaction = session.BeginTransaction()){
+				try{
+					IQuery temp = session
+						.CreateQuery("select count(c) from <%=_tableName%> c");
+					IList<object> result = temp.List<object>();
+					transaction.Commit();
+					return Convert.ToInt32((Int64)result[0]);
+				}catch(Exception e){
+					transaction.Rollback();
+					throw e;
+				}
+			}
+		}
+		
+		/// <summary>
+        /// 根据给定的条件字符串获得<%=_tableName%>
+        /// </summary>
+        /// <param name="wherestring">条件字符串，sql语句中 where后边的部分</param>
+        /// <returns></returns>
+        public IList<<%=_tableName%>> Get_<%=_tableName%>_By_Wherestring(string wherestring)
+        {
+            using(ITransaction transaction = session.BeginTransaction()){
+				try
+				{
+					string sql = "select * from <%=_tableName%> where " + wherestring;
+					IList<<%=_tableName%>> temps = this.session.CreateSQLQuery(sql).AddEntity(typeof(<%=_tableName%>)).List<<%=_tableName%>>();
+					transaction.Commit();
+					return temps;
+				}
+				catch (Exception e)
+				{
+					transaction.Rollback();
+					throw e;
+				} 
+			}
+        }
+		
+		/// <summary>
+        /// 根据给定的条件字符串获得<%=_tableName%>
+        /// </summary>
+        /// <param name="wherestring">条件字符串，sql语句中 where后边的部分</param>
+        /// <param name="pagesize">页的大小</param>
+        /// <param name="pageindex">页的Index从0开始</param>
+        /// <returns></returns>
+        public IList<<%=_tableName%>> Get_<%=_tableName%>_By_Wherestring(string wherestring, int pagesize, int pageindex)
+        {
+            using(ITransaction transaction = session.BeginTransaction()){
+				try
+				{
+					string sql = "select * from <%=_tableName%> where " + wherestring;
+					IList<<%=_tableName%>> temps = this.session.CreateSQLQuery(sql).AddEntity(typeof(<%=_tableName%>))
+						.SetFirstResult((pageindex) * pagesize).SetMaxResults(pagesize)
+						.List<<%=_tableName%>>();
+					transaction.Commit();
+					return temps;
+				}
+				catch (Exception e)
+				{
+					transaction.Rollback();
+					throw e;
+				}
+			}
+        }
+		
+		/// <summary>
+        /// 返回符合条件的对象的个数
+        /// </summary>
+        /// <param name="wherestring">条件字符串，sql语句中 where后边的部分</param>
+        /// <returns></returns>
+        public int Count_<%=_tableName%>_By_Wherestring(string wherestring)
+        {
+            using(ITransaction transaction = session.BeginTransaction()){
+				try
+				{
+					string sql = "select count(*) as C from <%=_tableName%> where " + wherestring;
+					ISQLQuery query = session.CreateSQLQuery(sql).AddScalar("C", NHibernateUtil.Int32);
+					int result = Convert.ToInt32(query.UniqueResult());
+					transaction.Commit();
+					return result;
+				}
+				catch (Exception e)
+				{
+					transaction.Rollback();
+					throw e;
+				}
+			}
+        }
+		
+<%			foreach(IColumn field in _workingTable.Columns){
+				string fieldName=field.Alias;
+				string fieldType = ColumnToNHibernateType(field );
+					
+				if(!field.IsInForeignKey || field.IsInPrimaryKey){
+					if(fieldName.Equals("ID")){
+%>		/// <summary>
+        /// 根据ID获得Cld_FCBlock
+        /// </summary>
+        /// <param name="condition">ID type:int</param>
+        /// <returns></returns>
+		public <%=_tableName%> Get<%=_tableName%>_By_ID(int condition){
+			using(ITransaction transaction = session.BeginTransaction()){
+				try{
+					<%=_tableName%> result = this.session.Get<<%=_tableName%>>(condition);
+					transaction.Commit();
+					return result;
+				}catch(Exception e){
+					transaction.Rollback();
+					throw e;
+				}
+			}
+		}
+
+<%
+					continue;
+					}
+%>		/// <summary>
+        /// 根据<%=fieldName%>获得<%=_tableName%>，返回一个对象的IList
+        /// </summary>
+        /// <param name="condition"><%=field.Description%> type:<%=fieldType%></param>
+        /// <returns></returns>
+		public IList<<%=_tableName%>> Get<%=_tableName%>s_By_<%=fieldName%>(<%=fieldType%> condition){
+<%					switch(fieldType){
+						case "String":
+						case "string":
+%>			ITransaction transaction = session.BeginTransaction();
+			try{
+				IList<<%=_tableName%>> result = this.session
+					.CreateQuery("select from <%=_tableName%> c where c.<%=fieldName%> = '" + condition + "'").List<<%=_tableName%>>();
+<%							break;
+						case "int":
+						case "float":
+						case "double":
+						case "short":
+%>			ITransaction transaction = session.BeginTransaction();
+			try{
+				IList<<%=_tableName%>> result = this.session
+					.CreateQuery("select from <%=_tableName%> c where c.<%=fieldName%> = " + condition ).List<<%=_tableName%>>();
+<%							break;
+						default:
+%>			ITransaction transaction = session.BeginTransaction();
+			try{
+				IList<<%=_tableName%>> result = this.session
+					.CreateQuery("select from <%=_tableName%> c where c.<%=fieldName%> = " + condition ).List<<%=_tableName%>>();
+<%							break;
+					}//end of switch
+%>				transaction.Commit();
+				return result;
+			}catch(Exception e){
+				transaction.Rollback();
+				throw e;
+			}
+		}
+		
+		/// <summary>
+        /// 根据<%=fieldName%>获得<%=_tableName%>，返回一个对象的IList
+        /// </summary>
+        /// <param name="condition"><%=fieldName%> type:<%=fieldType%></param>
+		/// <param name="pagesize">页的大小</param>
+		/// <param name="pageindex">页的索引，从0开始</param>
+        /// <returns></returns>
+		public IList<<%=_tableName%>> Get<%=_tableName%>s_By_<%=fieldName%>(<%=fieldType%> condition, int pagesize, int pageindex){
+<%					switch(fieldType){
+						case "String":
+						case "string":
+%>			ITransaction transaction = session.BeginTransaction();
+			try{
+				IList<<%=_tableName%>> result = this.session
+					.CreateQuery("select from <%=_tableName%> c where c.<%=fieldName%> = '" + condition + "'")
+					.SetFirstResult((pageindex) * pagesize).SetMaxResults(pagesize)
+					.List<<%=_tableName%>>();
+<%							break;
+						case "int":
+						case "float":
+						case "double":
+						case "short":
+%>			ITransaction transaction = session.BeginTransaction();
+			try{
+				IList<<%=_tableName%>> result = this.session
+					.CreateQuery("select from <%=_tableName%> c where c.<%=fieldName%> = " + condition )
+					.SetFirstResult((pageindex) * pagesize).SetMaxResults(pagesize)
+					.List<<%=_tableName%>>();
+<%							break;
+						default:
+%>			ITransaction transaction = session.BeginTransaction();
+			try{
+				IList<<%=_tableName%>> result = this.session
+					.CreateQuery("select from <%=_tableName%> c where c.<%=fieldName%> = '" + condition + "'")
+					.SetFirstResult((pageindex) * pagesize).SetMaxResults(pagesize)
+					.List<<%=_tableName%>>();
+<%							break;
+					}//end of switch
+%>				transaction.Commit();
+				return result;
+			}catch(Exception e){
+				transaction.Rollback();
+				throw e;
+			}
+		}
+		
+		/// <summary>
+        /// 返回符合条件的对象的个数
+        /// </summary>
+        /// <param name="condition"><%=fieldName%> type:<%=fieldType%></param>
+        /// <returns>符合条件的对象的个数</returns>
+		public int Count<%=_tableName%>s_By_<%=fieldName%>(<%=fieldType%> condition){
+<%					switch(fieldType){
+						case "String":
+						case "string":
+			
+%>			ITransaction transaction = session.BeginTransaction();
+			try{
+				IQuery temp = session
+					.CreateQuery("select count(c) from <%=_tableName%> c where c.<%=fieldName%> = '" + condition + "'");
+				IList<object> result = temp.List<object>();
+<%							break;
+						case "int":
+						case "float":
+						case "double":
+						case "short":
+%>			ITransaction transaction = session.BeginTransaction();
+			try{
+				IQuery temp = session
+					.CreateQuery("select count(c) from <%=_tableName%> c where c.<%=fieldName%> = " + condition );
+				IList<object> result = temp.List<object>();
+<%							break;
+						default:
+%>			ITransaction transaction = session.BeginTransaction();
+			try{
+				IQuery temp = session
+					.CreateQuery("select count(c) from <%=_tableName%> c where c.<%=fieldName%> = '" + condition + "'");
+				IList<object> result = temp.List<object>();
+<%							break;
+					}//end of switch
+%>				transaction.Commit();
+				return Convert.ToInt32((Int64)result[0]);
+			}catch(Exception e){
+				transaction.Rollback();
+				throw e;
+			}
+		}
+
+		
+<%				}else{
+					//纯粹的外键
+%>		/// <summary>
+        /// 根据<%=fieldName%>获得<%=_tableName%>，返回一个对象的IList
+        /// </summary>
+        /// <param name="condition"><%=field.Description%> type:<%=fieldType%></param>
+        /// <returns></returns>
+		public IList<<%=_tableName%>> Get<%=_tableName%>s_By_<%=fieldName%>(<%=fieldType%> condition){
+			using(ITransaction transaction = session.BeginTransaction()){
+				try{
+					string sql="select * from <%=_tableName%> where <%=fieldName%> = " + condition;
+					IList<<%=_tableName%>> result = session.CreateSQLQuery(sql).AddEntity("<%= _nameSpace %>.<%=_tableName%>").List<<%=_tableName%>>();
+					transaction.Commit();
+					return result;
+				}catch(Exception e){
+					transaction.Rollback();
+					throw e;
+				}
+			}
+		}
+		
+		/// <summary>
+        /// 根据<%=fieldName%>获得<%=_tableName%>，返回一个对象的IList
+        /// </summary>
+        /// <param name="condition"><%=fieldName%> type:<%=fieldType%></param>
+		/// <param name="pagesize">页的大小</param>
+		/// <param name="pageindex">页的索引，从0开始</param>
+        /// <returns></returns>
+		public IList<<%=_tableName%>> Get<%=_tableName%>s_By_<%=fieldName%>(<%=fieldType%> condition,int pagesize, int pageindex){
+			using(ITransaction transaction = session.BeginTransaction()){
+				try{
+					string sql="select * from <%=_tableName%> where <%=fieldName%> = " + condition;
+					IList<<%=_tableName%>> result = session.CreateSQLQuery(sql).AddEntity("<%= _nameSpace %>.<%=_tableName%>")
+						.SetFirstResult((pageindex) * pagesize).SetMaxResults(pagesize)
+						.List<<%=_tableName%>>();
+					transaction.Commit();
+					return result;
+				}catch(Exception e){
+					transaction.Rollback();
+					throw e;
+				}	
+			}
+		}
+		
+		/// <summary>
+        /// 返回符合条件的对象的个数
+        /// </summary>
+        /// <param name="condition"><%=fieldName%> type:<%=fieldType%></param>
+        /// <returns>符合条件的对象的个数</returns>
+		public int Count<%=_tableName%>s_By_<%=fieldName%>(<%=fieldType%> condition){
+			using(ITransaction transaction = session.BeginTransaction()){
+				try{
+					string sql="select count(*) as C from <%=_tableName%> where <%=fieldName%> = " + condition;
+					ISQLQuery  query=session.CreateSQLQuery(sql).AddScalar("C", NHibernateUtil.Int32);
+					int result=Convert.ToInt32(query.UniqueResult());
+					return result;
+				}catch(Exception e){
+					transaction.Rollback();
+					throw e;
+				}
+			}
+		}
+		
+<%				}
+			}//end of foreach column
+%>		
+<%		//}//end of foreach selected table
+%>		
+	}
+}
+<%			output.saveEnc( Path.Combine( _exportPath, filename ), false ,Encoding.GetEncoding("utf-8") );
+			output.clear();
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	private void Generate_manager_other(string filename){
+%>using System;
+using System.Collections.Generic;
+using System.Text;
+using NHibernate;
+
+namespace <%=_assembly%>
+{
+	partial class ProjectCRUD
+	{
+		
+		/************************************************************************/
+        /* 操作                                                                  */
+        /************************************************************************/
+		/// <summary>
+        /// 刷新session的更改到数据库
+        /// </summary>
+		public void Flush(){
+			this.session.Flush();
+		}
+		/// <summary>
+        /// 清空缓存
+        /// </summary>
+		public void Clear(){
+			this.session.Clear();
+		}
+		/// <summary>
+        /// 关闭同数据库的连接
+        /// </summary>
+		public void close(){
+			this.session.Close();
+		}
+		/// <summary>
+        /// 存储对象，但尚未到数据库中，必须Flush
+        /// </summary>
+        /// <param name="obj"></param>
+        public void Save(object obj) {
+            this.session.Save(obj);
+        }
+		/// <summary>
+        /// 将对象更新至数据库中
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public Exception persistence_save(object obj) {
+            try
+            {
+                ITransaction transaction = this.session.BeginTransaction();
+                this.Save(obj);
+                transaction.Commit();
+            }
+            catch (Exception exp) {
+                return exp;
+            }
+            return null;
+        }
+		/// <summary>
+        /// 将对象存储或者更新到数据库中
+        /// </summary>
+        /// <param name="obj">待处理的对象</param>
+        /// <returns></returns>
+        public Exception persistence_saveorupdate(object obj) {
+            try
+            {
+                ITransaction transaction = this.session.BeginTransaction();
+                this.session.SaveOrUpdate(obj);
+                transaction.Commit();
+            }
+            catch (Exception exp) {
+                return exp;
+            }
+            return null;
+        }
+	}
+}
+<%			output.saveEnc( Path.Combine( _exportPath, filename ), false ,Encoding.GetEncoding("utf-8") );
+			output.clear();
+	}
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	private void GenerateClassFile( IColumns Columns )
+	{
+		_CreatingXML =false;
+	
+%>using System;
+using System.Collections;
+using System.Collections.Generic;
+using NHibernate;
+using TDK.Core.Logic.URdoLib;
+
+namespace <%= _nameSpace %>
+{
+	/// <summary>
+	///	
+	/// </summary>
+	public partial <%=(_enableLazyClass ? "" : "sealed ")%>class <%= _className %>　: Entity
+	{
+<%		//私有成员的生成
+		if( Columns.Count > 0 )
+		{
+%>
+		
+		/// <summary>
+        /// 与此对象关联的ISession
+        /// </summary>
+		public static ISession session = null;
+		
+		#region 私有成员
+		private bool m_reload;
+<%		
+				foreach( IColumn field in Columns )
+				{
+					if( field.IsInForeignKey )
+					{
+						if(field.IsInPrimaryKey){
+%>		/// <summary>
+		/// <%= field.Description %>
+		/// </summary>
+		private <%= ColumnToNHibernateType( field ) %> <%= ToVariableName( field.Alias ) %>;
+<%							
+							foreach( IForeignKey fk in field.ForeignKeys ){
+							
+%>		/// <summary>
+        /// 与此对象相关联的IList
+        /// </summary>
+		private IList <%=_prefix+fk.ForeignTable.Alias.Replace( " ", "" )%>_List;
+<%							
+							}
+
+
+						}else{
+						
+						
+%>		/// <summary>
+		/// <%= field.Description %>
+		/// </summary>
+		private <%= ( field.ForeignKeys[0].PrimaryTable.Alias.Replace( " ", "" ) ) %> <%= delid(ToVariableName(field.Alias)) %>;
+		private <%= ColumnToNHibernateType( field ) %> <%= ToVariableName(field.Alias) %>; 
+<%							
+						}
+					}else{
+%>		/// <summary>
+		/// <%= field.Description %>
+		/// </summary>
+		private <%= ColumnToNHibernateType( field ) %> <%= ToVariableName(field.Alias) %>; 
+<%					}
+				}//end of foreach
+%>		
+		
+<%			}//end of if
+%>		private URdoManager m_manager;
+		#endregion 私有成员
+		
+		#region 构造函数
+			<% BuildDefaultConstructor( Columns ); %>
+		#endregion 构造函数
+		
+			<% BuildPublicAccessors( Columns ); %>
+	}
+}
+
+<%
+			_fileName = _className + ".cs";
+			output.saveEnc( Path.Combine( _exportPath, _fileName ), false ,Encoding.GetEncoding("utf-8") );
+			output.clear();
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////
+		private void GenerateMappingFile( IColumns Columns )
+		{
+			_CreatingXML =true;
+		
+			BuildHBMDefinition( Columns );
+		
+			_fileName = _className + ".hbm.xml";
+			output.saveEnc( Path.Combine( _exportPath, _fileName ), false ,Encoding.GetEncoding("utf-8") );
+			output.clear();
+		}
+		
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		private void BuildDefaultConstructor( IColumns Columns )
+		{
+%>		/// <summary>
+		/// 默认构造函数
+		/// <summary>
+		public <%=_className%>(){
+			m_reload = false;
+<%			foreach( IColumn field in Columns )
+			{
+				string fieldName = ToVariableName(field.Alias);
+				string fieldType = ColumnToNHibernateType(field );
+			
+				
+				if( field.IsInForeignKey)
+				{
+					if(field.IsInPrimaryKey){
+						switch(fieldType){
+							case "string":
+%>			<%=fieldName%> = String.Empty;
+<%								break;
+							case "decimal":
+							case "float":
+							case "byte":
+							case "short":
+							case "int":
+							case "long":
+%>			<%=fieldName%> = -1;
+<%								break;
+						}			
+						foreach( IForeignKey fk in field.ForeignKeys )
+						{
+%>			<%=_prefix+fk.ForeignTable.Alias.Replace( " ", "" )%>_List = null;
+<%						}
+					}else{
+%>			<%= fieldName %> = -1;
+			//<%= delid(fieldName) %> = new <%= ( field.ForeignKeys[0].PrimaryTable.Alias.Replace( " ", "" ) ) %>(); 
+			<%= delid(fieldName) %> = null;
+<%					}
+				}else
+				if( fieldType.EndsWith( "[]" ) )
+				{
+%> 
+			<%= fieldName %> = new <%= fieldType %>{};
+<%				}else{
+					switch( fieldType )
+					{
+						case "string":
+%>			<%= fieldName %> = String.Empty;
+<%							break;
+						case "DateTime":
+%>			<%= fieldName %> = DateTime.MinValue;
+<%							break;
+						case "bool":
+%>			<%= fieldName %> = false;
+<%							break;
+						case "decimal":
+						case "float":
+						case "byte":
+						case "short":
+						case "int":
+						case "long":
+%>			<%= fieldName %> = -1;
+<%							break;
+						default:
+%>			<%= fieldName %> = <% if(_useNull){ %> null; <% }
+									  else {%> new <%= fieldType %>(); <% }
+							break;
+					
+						case "Guid":
+%> 			<%= fieldName %>= Guid.Empty;
+<%							break;
+					}//end of switch
+				}
+			}//end of for each
+%>			this.m_manager = null;
+		}
+<%		}//end of method
+	
+	
+		
+	private void BuildPublicAccessors( IColumns Columns )
+	{
+		if( Columns.Count <= 0 )
+		{
+			return ;
+		}
+%>		
+		public virtual URdoManager URManager{
+			get{
+				return m_manager;
+			}
+			set{
+				m_manager = value;
+			}
+		}
+
+
+		/// <summary>
+		/// 调用相关属性时是否重新加载与其相关的List和Parent
+		/// </summary>
+		public virtual bool Reload{
+			get{
+				return m_reload;
+			}
+			set{
+				m_reload = value;
+			}
+		}
+		public virtual <%= _className %> SetReload(){
+			this.m_reload = true;
+			return this;
+		}
+		public virtual <%= _className %> UnsetReload(){
+			this.m_reload = false;
+			return this;
+		}
+
+<%		foreach( IColumn field in Columns )
+		{
+			string fieldAccessor = field.Alias;
+			string fieldName = ToVariableName(field.Alias);
+			string fieldType = ColumnToNHibernateType( field );
+					
+			if(field.IsInForeignKey){
+				if(!field.IsInPrimaryKey){
+				//Fk
+%>				
+		/// <summary>
+		/// <%= field.Description %>
+		/// </summary>
+		public <%=(_enableLazyClass ? "virtual" : "")%> <%=fieldType%> <%= ( field.Alias ) %>
+		{
+			get { return <%=ToVariableName(field.Alias)%> ;}
+			set 
+			{ 
+				//to store the undo info
+                AddHistory("<%= ( field.Alias ) %>", <%=ToVariableName(field.Alias)%>);
+				<%=ToVariableName(field.Alias)%> = value; 
+			}
+		}
+		/// <summary>
+		/// <%= field.Description %>
+		/// </summary>
+		public virtual <%= ( field.ForeignKeys[0].PrimaryTable.Alias.Replace( " ", "" ) ) %> <%= delid((field.Alias)) %>
+		{
+			get
+            {
+				if(m_reload){
+					ITransaction transaction = <%=_className%>.session.BeginTransaction();
+					try{
+						this.<%=delid(ToVariableName(field.Alias))%> = <%=_className%>.session.Get<<%= ( field.ForeignKeys[0].PrimaryTable.Alias.Replace( " ", "" ) ) %>>(this.<%=((field.Alias)) %>);
+						transaction.Commit();
+						m_reload=false;
+						return this.<%=delid(ToVariableName(field.Alias))%>;
+					}catch(Exception e){
+						transaction.Rollback();
+						m_reload=false;
+						throw e;
+					}
+				}
+                if (this.<%=delid(ToVariableName(field.Alias))%> == null)
+                {
+                    if (<%=_className%>.session != null)
+                    {
+						ITransaction transaction = <%=_className%>.session.BeginTransaction();
+						try{
+							this.<%=delid(ToVariableName(field.Alias))%> = <%=_className%>.session.Get<<%= ( field.ForeignKeys[0].PrimaryTable.Alias.Replace( " ", "" ) ) %>>(this.<%=((field.Alias)) %>);
+							transaction.Commit();
+							return this.<%=delid(ToVariableName(field.Alias))%>;
+						}catch(Exception e){
+							transaction.Rollback();
+							throw e;
+						}
+                    }
+                    else
+                    {
+                        throw new Exception("the session is not open");
+                    }
+                }
+                return <%=delid(ToVariableName(field.Alias))%>;
+            }
+			set { <%=delid(ToVariableName(field.Alias))%> = value; }
+		}
+<%							
+				}else{
+				//PK
+%>		/// <summary>
+		/// <%= field.Description %>
+		/// </summary>
+		public virtual <%= fieldType %> <%= fieldAccessor %>{
+			get { return <%= fieldName %>; }
+			set { <%= fieldName %> = value; }
+		}
+<%
+					foreach( IForeignKey fk in field.ForeignKeys )
+					{
+%>		/// <summary>
+		/// <%= field.Description %> ,当子元素很多的时候，由于没有分页功能，可能会影响程序性能，此时尽量不要使用此属性
+		/// 可以采用相关类的查询类 *CRUD中的相关方法进行分页查询
+		/// 此外如果单纯统计子元素的个数，也建议采用 相关查询类 *CRUD中的count方法，
+		/// </summary>
+		public <%=(_enableLazyClass ? "virtual" : "")%> IList <%=fk.ForeignTable.Alias.Replace( " ", "" )%>_List
+		{
+			get
+            {
+				if(m_reload){
+					ITransaction transaction = <%=_className%>.session.BeginTransaction();
+					try{
+						this.<%=_prefix+fk.ForeignTable.Alias.Replace( " ", "" )%>_List = <%=_className%>.session.CreateQuery("from <%=fk.ForeignTable.Alias.Replace( " ", "" )%> as i where i.<%=fk.ForeignColumns[0].Name%> = " + this.ID)
+							.List();
+						transaction.Commit();
+						m_reload=false;
+						return this.<%=_prefix+fk.ForeignTable.Alias.Replace( " ", "" )%>_List;
+					}catch(Exception e){
+						transaction.Rollback();
+						m_reload=false;
+						throw e;
+					}
+				}
+                if (this.<%=_prefix+fk.ForeignTable.Alias.Replace( " ", "" )%>_List == null)
+                {
+                    if (<%=_className%>.session != null)
+                    {
+						ITransaction transaction = <%=_className%>.session.BeginTransaction();
+						try{
+							this.<%=_prefix+fk.ForeignTable.Alias.Replace( " ", "" )%>_List = <%=_className%>.session.CreateQuery("from <%=fk.ForeignTable.Alias.Replace( " ", "" )%> as i where i.<%=fk.ForeignColumns[0].Name%> = " + this.ID)
+								.List();
+							transaction.Commit();
+							return this.<%=_prefix+fk.ForeignTable.Alias.Replace( " ", "" )%>_List;
+						}catch(Exception e){
+							transaction.Rollback();
+							throw e;
+						}
+                    }
+                    else
+                    {
+                        throw new Exception("the session is not open");
+                    }
+                }
+                return <%=_prefix+fk.ForeignTable.Alias.Replace( " ", "" )%>_List;
+            }
+			set { <%=_prefix+fk.ForeignTable.Alias.Replace( " ", "" )%>_List = value; }
+		}
+<%					}//end of foreach
+				}
+
+			}else{
+			//not foreignkey not primary ket ordernary		
+%>		/// <summary>
+		/// <%= field.Description %>
+		/// </summary>		
+		public <%=(_enableLazyClass ? "virtual" : "")%> <%= fieldType %> <%= fieldAccessor %>
+		{
+			get { return <%= fieldName %>; }
+<%				if( !_createReadOnly )
+				{
+					switch( fieldType )
+					{
+						default:
+%>			set { <%= fieldName %> = value; }
+<%							break;
+						case "string": 
+%>			set	
+			{
+				if ( value != null)
+				if( value.Length > <%= field.CharacterMaxLength.ToString() %>){
+					throw new ArgumentOutOfRangeException("Invalid value for <%= fieldAccessor %>", value, value.ToString());
+				}
+				//to store the undo info
+                AddHistory("<%= ( field.Alias ) %>", <%= fieldName %>);
+				<%= fieldName %> = value;
+			}
+<%							break;
+					}//end of switch
+				}//end of if					
+%>
+		}		
+<%						
+			}//end of field.IsInForeignKey
+						
+		}//end foreach
+			
+%>	
+<%	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//公有函数的生成
+	private void BuildPublicFunctions( IColumns Columns )
+	{
+		foreach( IColumn field in Columns ){				
+			if(field.IsInForeignKey)
+			if(field.IsInPrimaryKey){
+				//对主键进行处理
+				if(field.ForeignKeys.Count ==1){
+					//如果只引用一个
+%>		
+		/// <summary>
+		/// 添加<%=field.ForeignKeys[0].ForeignTable.Name%>
+		/// </summary>
+		public virtual void Add_<%=field.ForeignKeys[0].ForeignTable.Name%>(<%=field.ForeignKeys[0].ForeignTable.Name%> toadd){
+			this.<%=field.ForeignKeys[0].ForeignTable.Name.Replace( " ", "" )%>_List.Add(toadd);
+			toadd.<%=ToPascalCase(field.ForeignKeys[0].ForeignColumns[0].Alias)%> = this;
+		}
+<%					
+					continue;
+				}
+				
+				List<ITable> itables=new List<ITable>();
+				foreach(IForeignKey fk in field.ForeignKeys){
+					itables.Add(fk.ForeignTable);
+				}
+				
+				ITable table=Get_head(itables);
+				string fieldname_wei="";
+				if(table!=null){
+					foreach(IForeignKey fk in field.ForeignKeys){
+						if(fk.ForeignTable.Name.Equals(table.Name)){
+							fieldname_wei=fk.ForeignColumns[0].Name;
+						}
+					}
+					
+%>		
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual void Add_<%=table.Name%>(<%=table.Name%> toadd){
+			this.<%=table.Name.Replace( " ", "" )%>_List.Add(toadd);
+			toadd.<%=ToPascalCase(fieldname_wei)%> = this;
+		}
+<%					
+				}
+
+			}
+		}
+%>		
+		
+<%	}//end of this method
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	private void BuildHBMDefinition( IColumns Columns )
+	{
+		if( Columns.Count > 0 )
+		{
+			output.writeln( "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" );
+			output.writeln( NHibernateMappingTag() );
+			output.writeln( "\t" + NHibernateClassTag( Columns ) );
+			output.writeln( "\t\t" + NHibernatePrimaryKeysTag( Columns ) );
+			output.writeln( "\t\t" + NHibernateProperties( Columns ) );
+			output.writeln( "\t</class>" );
+			output.writeln( "</hibernate-mapping>" );
+		}
+	}
+	
+	private string NHibernateMappingTag()
+	{
+		//// can't handle external mappings ?!?
+		////string xml = "<hibernate-mapping xmlns=\"http://nhibernate.sourceforge.net/schemas/nhibernate-mapping-2.0.xsd\"";
+		//string xml = "<hibernate-mapping xmlns=\"urn:nhibernate-mapping-2.0\"";
+		//// handle schemas, cascade, import, and access methods?
+		//return xml + ">";
+		return "<hibernate-mapping xmlns=\"urn:nhibernate-mapping-2.2\">";
+	}
+	
+	private string NHibernateClassTag( IColumns Columns )
+	{
+		//ITable t = Columns[0].Table;
+		//IView v = Columns[0].View;
+		//string desc = ( t == null ) ? v.Description : t.Description;
+		StringBuilder xml = new StringBuilder();
+		xml.Append( "<class name=\"" ).Append( _nameSpace ).Append( "." ).Append( _className ).Append( "," ).Append( _assembly ).Append( "\"" );
+		xml.Append( " table=\"" ).Append( _tableName ).Append( "\"" );
+		if(_enableLazyClass)
+		{
+			xml.Append( " lazy=\"true\"" );
+		}
+		
+		if( _createReadOnly )
+		{
+			xml.Append( " mutable=\"false\"" );
+		}
+		// handle schema override, dynamic insert & update, and proxies?
+		xml.Append( ">\r\n" );
+		return xml.ToString();
+	}
+	
+	private string NHibernatePrimaryKeysTag( IColumns Columns )
+	{
+		StringBuilder xml = new StringBuilder();
+		int i = 0;
+		foreach( IColumn c in Columns )
+		{
+			if( c.IsInPrimaryKey )
+			{
+				i++;
+			}
+		}
+		if( i == 0 )
+		{
+			return " <!-- could not find a primary key for this table/view. NHibernate requires an 'id' element, so you'll have to define one manually. -->";
+		}
+		if( i == 1 )
+		{
+			foreach( IColumn c in Columns )
+			{
+				if( c.IsInPrimaryKey )
+				{
+					xml.Append( "<id name=\"" ).Append( c.Alias ).Append( "\" column=\"" );
+					xml.Append( c.Alias ).Append( "\" type=\"" ).Append( ConvertNHibernate( ColumnToNHibernateType( c ) ) ).Append( "\"" );
+					switch( ColumnToNHibernateType( c ) )
+					{
+						case "decimal":
+						case "float":
+						case "short":
+						case "int":
+						case "long":
+							xml.Append( " unsaved-value=\"-1\">\r\n" );
+							break;
+						case "Guid":
+							xml.Append( " unsaved-value=\"00000000-0000-0000-0000-000000000000\">\r\n" );
+							break;
+						default:
+							xml.Append( ">\r\n" );
+							break;
+					}
+					xml.Append( "\t\t\t<generator class=\"" );
+					//xml.Append( GetGeneratorString(c));
+					xml.Append( "increment");
+					xml.Append( "\"/>\r\n\t\t</id>" );
+				}
+			}
+		}
+		if( i > 1 )
+		{
+			xml.Append( "<composite-id access=\"field\">" );
+			xml.Append( "\r\n\t\t\t" );
+			foreach( IColumn c in Columns )
+			{
+				if( c.IsInPrimaryKey )
+				{
+					xml.Append(" <key-property name=\"").Append( c.Alias ).Append( "\" column=\"" );
+					xml.Append( c.Alias ).Append( "\" type=\"" ).Append( ConvertNHibernate( ColumnToNHibernateType( c ) ) ).Append( "\"" );
+					switch( ColumnToNHibernateType( c ) )
+					{
+						case "decimal":
+						case "float":
+						case "short":
+						case "int":
+						case "long":
+							xml.Append( " />\r\n" );
+							break;
+						default:
+							xml.Append( "/>\r\n" );
+							break;
+					}
+					xml.Append( "\t\t\t" );
+					
+				}
+			}
+			xml.Append( "\r\n\t\t</composite-id>\r\n\t\t" );
+		}
+		return xml.ToString();
+	}
+	
+	//生成属性
+	private string NHibernateProperties( IColumns Columns )
+	{
+		StringBuilder xml = new StringBuilder();
+		foreach( IColumn c in Columns )
+		{
+			if( !c.IsInPrimaryKey )
+			{
+				// create sets & such for foreign keys !!!
+				//if( c.IsInForeignKey )
+				if(0 == 2)
+				{
+					//仅仅是一个外键
+					if( c.ForeignKeys.Count > 1 )
+					{
+						xml.Append( "<!-- more than one foreign column is mapped to " ).Append( c.Name ).Append( " - you're on your own. -->\r\n\t\t" );
+					}
+					else
+					{
+						IForeignKey fk = c.ForeignKeys[0];
+						//xml.Append( "<property column=\"");
+						//xml.Append( c.Name+"\" ")
+						//   .Append( "type=\"")
+						//   .Append( ConvertNHibernate( ColumnToNHibernateType( c ) )).Append("\" ");
+						//if( _createReadOnly )
+						//{
+						//xml.Append( " access=\"field\" name=\"" ).Append( ToVariableName(c.Alias) ).Append( "\"" );
+						//}else{
+						//xml.Append( " name=\"" ).Append( c.Alias ).Append( "\"" );
+						//}
+						//if( !c.IsNullable ){
+						//xml.Append( " not-null=\"true\"" );
+						//}
+						//if( c.LanguageType == "string" ){
+						//xml.Append( " length=\"" ).Append( c.CharacterMaxLength ).Append( "\"" );
+						//}
+						//xml.Append( " />\r\n\t\t" );
+						
+						
+						   
+						xml.Append( "<many-to-one name=\"" )
+						   .Append( ToPascalCase( c.Alias ) )
+						   .Append( "\" column=\"" )
+						   .Append( c.Name );
+						xml.Append( "\" class=\"" )
+						   .Append(_nameSpace+"."+fk.PrimaryTable.Alias.Replace( " ", "" )+","+_assembly)
+						   //.Append(" cascade=\"all" )
+						   .Append( "\" />\r\n\t\t" );
+					}
+				}else{
+					//一般的property
+					xml.Append( "<property column=\"" ).Append( c.Name );
+					xml.Append( "\" type=\"" ).Append( ConvertNHibernate( ColumnToNHibernateType( c ) ) ).Append( "\"" );
+					
+					if( _createReadOnly )
+					{
+						xml.Append( " access=\"field\" name=\"" ).Append( ToVariableName(c.Alias) ).Append( "\"" );
+					}
+					else
+					{
+						xml.Append( " name=\"" ).Append( c.Alias ).Append( "\"" );
+					}
+					if( !c.IsNullable )
+					{
+						xml.Append( " not-null=\"true\"" );
+					}
+					if( c.LanguageType == "string" )
+					{
+						xml.Append( " length=\"" ).Append( c.CharacterMaxLength ).Append( "\"" );
+					}
+					xml.Append( " />\r\n\t\t" );
+				}
+			}else{//end of c.isinprimary
+				// c.IsInPrimaryKey is true here
+				//一个主键
+				if( c.IsInForeignKey )
+				{
+					//Here's where we handle one-to-many relations.  A column that is in the PK, and is involved in FK relatioships, 
+					//means it's the one in the one-to-many. 
+					//一个主键，同时也是外键
+					//foreach( IForeignKey fk in c.ForeignKeys )
+					//{
+					//	//Use a bag, since we don't know the real relationship.  
+					//	xml.Append( "<bag "); 
+					//	
+					//	//The name for the collection property in the class.  
+					//	//Made from the class name of the "many" side of the 
+					//	//relationship, with "List" appended.  
+					//	xml.Append( "name=\"" )
+					//	   .Append( ( fk.ForeignTable.Alias.Replace( " ", "" ) ) )
+					//	   .Append( "_List\" " );
+					//	   
+					//	//This means that persisting the class object that contains this 
+					//	//collection will not cause the collection's elements to be persisted.
+					//	//You have to navigate the collection and persist them individually. 
+					//	xml.Append( "inverse=\"true\" " );
+					//	xml.Append( "cascade=\"all\" ");
+					//	
+					//	//Lazy loading.  The collection is not filled until the application needs it. 
+					//	xml.Append( "lazy=\"true\" " )
+					//	   .Append( ">\r\n" );
+					//	
+					//	//The key element specifies the column in the owning class/table that is the
+					//	//foreign key for the collection's class/table.  Note this code only supports 
+					//	//single-column foreign keys.  
+					//	if( fk.ForeignColumns.Count > 1 )
+					//	{
+						//	xml.Append( "<!-- Composite foreign keys are not supported in this template. -->\r\n" );
+					//	}
+					//	else
+					//	{
+						//	xml.Append( "\t\t\t<key column=\"" )
+					//		   .Append( fk.ForeignColumns[0].Name )
+					//		   //.Append( c.Name )
+					//		   .Append( "\" />\r\n" );
+					//	}
+						
+					//	//the one-to-many tag specifies the class of the objects in the 
+						//collection, the "many" side.  
+					//	xml.Append( "\t\t\t<one-to-many class=\"" )
+					//	   
+					//	   .Append( _nameSpace+"."+fk.ForeignTable.Alias.Replace( " ", "" )+","+_assembly )
+					//	   
+					//	   .Append( "\" />\r\n" );
+					//	
+					//	//Close the bag tag and indent for the next column. 
+					//	xml.Append( "\t\t</bag>\r\n\t\t" );
+					//}
+				}
+			}
+		}
+		return xml.ToString();
+	}
+	//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	private string ToPascalCase( string name )
+	{
+		string notStartingAlpha = Regex.Replace( name, "^[^a-zA-Z]+", "" );
+		string workingString = ToLowerExceptCamelCase( notStartingAlpha );
+		workingString = RemoveSeparatorAndCapNext( workingString );
+		return delid(workingString);
+	}
+	private string ColumnToMemberVariable( IColumn Column )
+	{
+		return _prefix + UniqueColumn( Column ).ToLower();
+	}
+	private string RemoveSeparatorAndCapNext( string input )
+	{
+		string dashUnderscore = "-_";
+		string workingString = input;
+		char[] chars = workingString.ToCharArray();
+		int under = workingString.IndexOfAny( dashUnderscore.ToCharArray() );
+		while( under > -1 )
+		{
+			chars[ under + 1 ] = Char.ToUpper( chars[ under + 1 ], CultureInfo.InvariantCulture );
+			workingString = new String( chars );
+			under = workingString.IndexOfAny( dashUnderscore.ToCharArray(), under + 1 );
+		}
+		chars[ 0 ] = Char.ToUpper( chars[ 0 ], CultureInfo.InvariantCulture );
+		workingString = new string( chars );
+		return Regex.Replace( workingString, "[-_]", "" );
+	}
+
+	private string ToLowerExceptCamelCase( string input )
+	{
+		char[] chars = input.ToCharArray();
+		for( int i = 0; i < chars.Length; i++ )
+		{
+			int left = ( i > 0 ? i - 1 : i );
+			int right = ( i < chars.Length - 1 ? i + 1 : i );
+			if( i != left && i != right )
+			{
+				if( Char.IsUpper( chars[i] ) && Char.IsLetter( chars[ left ] ) && Char.IsUpper( chars[ left ] ) )
+				{
+					chars[i] = Char.ToLower( chars[i], CultureInfo.InvariantCulture );
+				}
+				else if( Char.IsUpper( chars[i] ) && Char.IsLetter( chars[ right ] ) && Char.IsUpper( chars[ right ] ) )
+				{
+					chars[i] = Char.ToLower( chars[i], CultureInfo.InvariantCulture );
+				}
+				else if( Char.IsUpper( chars[i] ) && !Char.IsLetter( chars[ right ] ) )
+				{
+					chars[i] = Char.ToLower( chars[i], CultureInfo.InvariantCulture );
+				}
+			}
+		}
+		chars[ chars.Length - 1 ] = Char.ToLower( chars[ chars.Length - 1 ], CultureInfo.InvariantCulture );
+		return new string( chars );
+	}
+	private string UniqueColumn( IColumn Column )
+	{
+		string c = Column.Alias.Replace( " ", "" );
+		if( Column.Table != null && Column.Table.Alias.Replace( " ", "" ) == c )
+		{
+			c += "Name";
+		}
+		if( Column.View != null && Column.View.Alias.Replace( " ", "" ) == c )
+		{
+			c += "Name";
+		}
+		return c;
+	}
+		
+	private string ColumnToPropertyName( IColumn Column )
+	{
+		return ToPascalCase( UniqueColumn( Column ) );
+	}
+	
+	//itable 外键引用的所有表的名字
+	private List<string> refTableName(ITable itable){
+		List<string> result=new List<string>();
+		foreach(IColumn column in itable.Columns){
+			if(column.IsInForeignKey && !column.IsInPrimaryKey){
+				foreach(IForeignKey fk in column.ForeignKeys){
+					result.Add(fk.PrimaryTable.Name);
+				}
+			}
+		}
+		return result;
+	}
+	
+	//given a list of ITable ,return the head based on the relation of the table
+	private ITable Get_head(List<ITable> itables){
+		List<string> tablenames=new List<string>();
+		foreach(ITable itable in itables){
+			tablenames.Add(itable.Name);
+		}
+		
+		foreach(ITable itable in itables){
+			List<string> temp=refTableName(itable);
+			bool contains=false;
+			foreach(string s in tablenames){
+				if(temp.Contains(s)){
+					contains=true;
+					break;
+				}
+			}
+			if(!contains){
+				return itable;
+			}
+		}
+		return null;
+	}
+	//去掉末尾的ID
+	public string delid(string input) {
+		if (input.EndsWith("id", true, null)) {
+			string temp= input.Substring(0, input.Length - 2);
+			if(temp.EndsWith("_")){
+				return temp.Substring(0,temp.Length-1);
+			}
+			return temp;
+		}
+        return input;
+	}
+}
+%>
+##|BODY_END

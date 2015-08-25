@@ -1,0 +1,40 @@
+D:\weiyuanke\xinhua\xinhua_signal_symbol\xinhua_signal_symbol\obj\Debug\ResolveAssemblyReference.cache
+D:\weiyuanke\xinhua\xinhua_signal_symbol\xinhua_signal_symbol\obj\Debug\xinhua.Form1.resources
+D:\weiyuanke\xinhua\xinhua_signal_symbol\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.Properties.Resources.resources
+D:\weiyuanke\xinhua\xinhua_signal_symbol\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.csproj.GenerateResource.Cache
+D:\weiyuanke\xinhua\xinhua_signal_symbol\xinhua_signal_symbol\bin\Debug\xinhua_signal_symbol.exe
+D:\weiyuanke\xinhua\xinhua_signal_symbol\xinhua_signal_symbol\bin\Debug\xinhua_signal_symbol.pdb
+D:\weiyuanke\xinhua\xinhua_signal_symbol\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.exe
+D:\weiyuanke\xinhua\xinhua_signal_symbol\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.pdb
+D:\weiyuanke\xinhua_signal_symbol\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.exe
+D:\weiyuanke\xinhua_signal_symbol\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.pdb
+D:\weiyuanke\xinhua_signal_symbol\xinhua_signal_symbol\bin\Debug\xinhua_signal_symbol.exe
+D:\weiyuanke\xinhua_signal_symbol\xinhua_signal_symbol\bin\Debug\xinhua_signal_symbol.pdb
+D:\weiyuanke\xinhua_signal_symbol\xinhua_signal_symbol\obj\Debug\ResolveAssemblyReference.cache
+D:\weiyuanke\xinhua_signal_symbol\xinhua_signal_symbol\obj\Debug\xinhua.Form1.resources
+D:\weiyuanke\xinhua_signal_symbol\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.Properties.Resources.resources
+D:\weiyuanke\xinhua_signal_symbol\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.csproj.GenerateResource.Cache
+D:\weiyuanke\xinhua_signal_symbol_svn\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.exe
+D:\weiyuanke\xinhua_signal_symbol_svn\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.pdb
+D:\weiyuanke\xinhua_signal_symbol_svn\xinhua_signal_symbol\bin\Debug\xinhua_signal_symbol.exe
+D:\weiyuanke\xinhua_signal_symbol_svn\xinhua_signal_symbol\bin\Debug\xinhua_signal_symbol.pdb
+D:\weiyuanke\xinhua_signal_symbol_svn\xinhua_signal_symbol\obj\Debug\ResolveAssemblyReference.cache
+D:\weiyuanke\xinhua_signal_symbol_svn\xinhua_signal_symbol\obj\Debug\xinhua.Form1.resources
+D:\weiyuanke\xinhua_signal_symbol_svn\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.Properties.Resources.resources
+D:\weiyuanke\xinhua_signal_symbol_svn\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.csproj.GenerateResource.Cache
+D:\weiyuanke\ProjectManager\xinhua_signal_symbol\bin\Debug\xinhua_signal_symbol.exe
+D:\weiyuanke\ProjectManager\xinhua_signal_symbol\bin\Debug\xinhua_signal_symbol.pdb
+D:\weiyuanke\ProjectManager\xinhua_signal_symbol\obj\Debug\ResolveAssemblyReference.cache
+D:\weiyuanke\ProjectManager\xinhua_signal_symbol\obj\Debug\xinhua.Form1.resources
+D:\weiyuanke\ProjectManager\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.Properties.Resources.resources
+D:\weiyuanke\ProjectManager\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.csproj.GenerateResource.Cache
+D:\weiyuanke\ProjectManager\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.exe
+D:\weiyuanke\ProjectManager\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.pdb
+C:\Documents and Settings\lyh\桌面\ProjectManager\xinhua_signal_symbol\bin\Debug\xinhua_signal_symbol.exe
+C:\Documents and Settings\lyh\桌面\ProjectManager\xinhua_signal_symbol\bin\Debug\xinhua_signal_symbol.pdb
+C:\Documents and Settings\lyh\桌面\ProjectManager\xinhua_signal_symbol\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\lyh\桌面\ProjectManager\xinhua_signal_symbol\obj\Debug\xinhua.Form1.resources
+C:\Documents and Settings\lyh\桌面\ProjectManager\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.Properties.Resources.resources
+C:\Documents and Settings\lyh\桌面\ProjectManager\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.csproj.GenerateResource.Cache
+C:\Documents and Settings\lyh\桌面\ProjectManager\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.exe
+C:\Documents and Settings\lyh\桌面\ProjectManager\xinhua_signal_symbol\obj\Debug\xinhua_signal_symbol.pdb

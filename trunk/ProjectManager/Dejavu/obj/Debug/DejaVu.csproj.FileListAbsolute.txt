@@ -1,0 +1,5 @@
+Z:\media\11G\ziliao\ProjectManager\Dejavu\bin\Debug\Dejavu.dll
+Z:\media\11G\ziliao\ProjectManager\Dejavu\bin\Debug\Dejavu.pdb
+Z:\media\11G\ziliao\ProjectManager\Dejavu\obj\Debug\ResolveAssemblyReference.cache
+Z:\media\11G\ziliao\ProjectManager\Dejavu\obj\Debug\Dejavu.dll
+Z:\media\11G\ziliao\ProjectManager\Dejavu\obj\Debug\Dejavu.pdb

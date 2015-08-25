@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" ?>
+<hibernate-configuration  xmlns="urn:nhibernate-configuration-2.2" >
+    <session-factory>
+        
+        <!--指明是否在log4net日志中显示sql语句，主要用于调试-->
+        <property name="show_sql">true</property>
+
+        <!---->
+        <property name="use_outer_join">true</property>
+
+        <!--数据库方言，取值必须是继承之Dialect的类的全名-->
+        <property name="dialect">NHibernate.Dialect.SybaseDialect</property>
+        
+        <!--连接提供者，取值必须是实现了IConnectionProvider接口的类的全名-->
+        <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
+
+        <!--数据驱动类，取值必须是实现了IDriver接口的类的全名-->
+        <property name="connection.driver_class">NHibernate.Driver.OleDbDriver</property>
+        
+        <!--连接字符串，取值与connection.driver_class对应-->
+        <property name="connection.connection_string">Provider=Microsoft.Jet.OLEDB.4.0;Data Source=海口.mdb</property>
+        
+        <!--代理工厂,可以试用Castle,也可以试用LinFu-->
+        <property name="proxyfactory.factory_class">NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle</property>
+
+        <property name="adonet.batch_size">50</property>
+      
+        <!-- 映射文件 -->
+        <!--程序将加载DDLLY.MyDoc.NHibernateTest.Configuration命名空间所有的映射文件(*.hbm.xml)-->
+        <mapping assembly="TDK.Core.Logic" />
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Cfg_VarConstant" table="Cfg_VarConstant">
+
+		<id name="VarName" column="VarName" type="String">
+			<generator class="assigned"/>
+		</id>
+		<property column="DataType" type="String" name="m_DataType" length="50" />
+		<property column="Value" type="String" name="m_Value" length="50" />
+		<property column="SymbolName" type="String" name="m_SymbolName" length="50" />
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Cld_IRef" table="Cld_IRef">
+
+		<id name="Objectid" column="ObjectID" type="String">
+			<generator class="assigned"/>
+		</id>
+		<property column="ControllerAddress" type="String" name="m_ControllerAddress" length="50" />
+		<property column="DocumentName" type="String" name="m_DocumentName" length="100" />
+		<property column="SheetName" type="String" name="m_SheetName" length="50" />
+		<property column="RefName" type="String" name="m_RefName" length="50" />
+		<property column="SrcRefID" type="String" name="m_SrcRefID" length="50" />
+		<property column="FunctionCode" type="String" name="m_FunctionCode" length="50" />
+		<property column="FunctionName" type="String" name="m_FunctionName" length="50" />
+		<property column="PinName" type="String" name="m_PinName" length="50" />
+		<property column="Address" type="String" name="m_Address" length="50" />
+		<property column="X_Y" type="String" name="m_X_Y" length="50" />
+		<property column="NetworkID" type="String" name="m_NetworkID" length="50" />
+		
+	</class>
+</hibernate-mapping>

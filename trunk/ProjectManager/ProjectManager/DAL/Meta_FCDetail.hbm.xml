@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="TDK.Core.Logic.DAL.Meta_FCDetail,TDK.Core.Logic" table="Meta_FCDetail" lazy="true">
+
+		<id name="ID" column="ID" type="Int32" unsaved-value="-1">
+			<generator class="increment"/>
+		</id>
+		<property column="FunctionName" type="String" name="FunctionName" length="50" />
+		<property column="PinName" type="String" name="PinName" length="50" />
+		<property column="PinIndex" type="Int32" name="PinIndex" />
+		<property column="DataType" type="String" name="DataType" length="50" />
+		<property column="Tune" type="Boolean" name="Tune" not-null="true" />
+		<property column="PinType" type="String" name="PinType" length="50" />
+		<property column="MaxValue" type="String" name="MaxValue" length="50" />
+		<property column="MinValue" type="String" name="MinValue" length="50" />
+		<property column="ValidValue" type="String" name="ValidValue" length="200" />
+		<property column="DefaultValue" type="String" name="DefaultValue" length="50" />
+		<property column="Required" type="Boolean" name="Required" not-null="true" />
+		<property column="Description" type="String" name="Description" length="255" />
+		<property column="Fixed" type="Boolean" name="Fixed" not-null="true" />
+		<property column="PinSignalType" type="String" name="PinSignalType" length="50" />
+		<property column="Meta_FCMaster_ID" type="Int32" name="Meta_FCMaster_ID" />
+		
+	</class>
+</hibernate-mapping>

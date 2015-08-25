@@ -1,0 +1,295 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7409DDC0-BA3B-48C6-997F-CBF12E4A300A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TDK.Core.Logic</RootNamespace>
+    <AssemblyName>TDK.Core.Logic</AssemblyName>
+    <StartupObject>TDK.Core.Logic.Program</StartupObject>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="antlr.runtime, Version=2.7.6.2, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Res\antlr.runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime, Version=3.1.0.39271, Culture=neutral, PublicKeyToken=3a9cab8f8d22bfb7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Res\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="Castle.DynamicProxy2, Version=2.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Res\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
+    <Reference Include="LinFu.DynamicProxy, Version=1.0.3233.760, Culture=neutral, PublicKeyToken=62a6874124340d6e, processorArchitecture=MSIL" />
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Res\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NHibernate, Version=2.1.0.1001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
+    <Reference Include="NHibernate.ByteCode.Castle, Version=2.1.0.1001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
+    <Reference Include="NHibernate.ByteCode.LinFu, Version=2.1.0.2001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Res\NHibernate.ByteCode.LinFu.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Spring, Version=2.1.0.2001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Res\NHibernate.ByteCode.Spring.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.DomainModel, Version=2.1.0.2001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Res\NHibernate.DomainModel.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.JetDriver, Version=2.0.0.1001, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="NHibernate.Test, Version=2.1.0.2001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Res\NHibernate.Test.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.core, Version=2.5.0.9122, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Res\nunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.0.9122, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Res\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Aop, Version=0.0.0.20110, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Res\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=0.0.0.20110, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Res\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\BLL.cs" />
+    <Compile Include="BLL\CrossReference.cs" />
+    <Compile Include="BLL\GenerateSignal.cs" />
+    <Compile Include="BLL\GraphicsDocument.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLL\Helper.cs" />
+    <Compile Include="BLL\ProjectManager.cs" />
+    <Compile Include="BLL\tool_functions.cs" />
+    <Compile Include="DAL\CRUDBase.cs" />
+    <Compile Include="DAL\Entity_Class_Base.cs" />
+    <Compile Include="DAL\Cld_Constant_Delete_manul.cs" />
+    <Compile Include="DAL\Cld_Constant_manul.cs" />
+    <Compile Include="DAL\Cld_Constant_Query.cs" />
+    <Compile Include="DAL\Cld_Constant_Query_manul.cs" />
+    <Compile Include="DAL\Cld_FCBlock_Delete_manul.cs" />
+    <Compile Include="DAL\Cld_FCBlock_manul.cs" />
+    <Compile Include="DAL\Cld_FCBlock_Query.cs" />
+    <Compile Include="DAL\Cld_FCBlock_Query_manul.cs" />
+    <Compile Include="DAL\Cld_FCInput_Delete_manul.cs" />
+    <Compile Include="DAL\Cld_FCInput_manul.cs" />
+    <Compile Include="DAL\Cld_FCInput_Query.cs" />
+    <Compile Include="DAL\Cld_FCOutput_Delete_manul.cs" />
+    <Compile Include="DAL\Cld_FCOutput_manul.cs" />
+    <Compile Include="DAL\Cld_FCOutput_Query.cs" />
+    <Compile Include="DAL\Cld_FCParameter_Delete_manul.cs" />
+    <Compile Include="DAL\Cld_FCParameter_manul.cs" />
+    <Compile Include="DAL\Cld_FCParameter_Query.cs" />
+    <Compile Include="DAL\Cld_Graphic_Delete_manul.cs" />
+    <Compile Include="DAL\Cld_Graphic_manul.cs" />
+    <Compile Include="DAL\Cld_Graphic_Query.cs" />
+    <Compile Include="DAL\Cld_Signal_Delete_manul.cs" />
+    <Compile Include="DAL\Cld_Signal_manul.cs" />
+    <Compile Include="DAL\Cld_Signal_Query.cs" />
+    <Compile Include="DAL\Cld_Constant.cs" />
+    <Compile Include="DAL\Cld_FCBlock.cs" />
+    <Compile Include="DAL\Cld_FCInput.cs" />
+    <Compile Include="DAL\Cld_FCOutput.cs" />
+    <Compile Include="DAL\Cld_FCParameter.cs" />
+    <Compile Include="DAL\Cld_Graphic.cs" />
+    <Compile Include="DAL\Cld_Signal.cs" />
+    <Compile Include="DAL\Meta_FCDetail.cs" />
+    <Compile Include="DAL\Meta_FCDetail_Delete_manul.cs" />
+    <Compile Include="DAL\Meta_FCDetail_Query.cs" />
+    <Compile Include="DAL\Meta_FCMaster.cs" />
+    <Compile Include="DAL\Meta_FCMaster_Delete_manul.cs" />
+    <Compile Include="DAL\Meta_FCMaster_Query.cs" />
+    <Compile Include="DAL\Meta_FCMaster_Query_manul.cs" />
+    <Compile Include="DAL\Prj_Controller.cs" />
+    <Compile Include="DAL\Prj_Controller_Delete_manul.cs" />
+    <Compile Include="DAL\Prj_Controller_manul.cs" />
+    <Compile Include="DAL\Prj_Controller_Query.cs" />
+    <Compile Include="DAL\Prj_Document.cs" />
+    <Compile Include="DAL\Prj_Document_Delete_manul.cs" />
+    <Compile Include="DAL\Prj_Document_manul.cs" />
+    <Compile Include="DAL\Prj_Document_Query.cs" />
+    <Compile Include="DAL\Prj_Network.cs" />
+    <Compile Include="DAL\Prj_Network_Delete_manul.cs" />
+    <Compile Include="DAL\Prj_Network_manul.cs" />
+    <Compile Include="DAL\Prj_Network_Query.cs" />
+    <Compile Include="DAL\Prj_Project.cs" />
+    <Compile Include="DAL\Prj_Project_Delete_manul.cs" />
+    <Compile Include="DAL\Prj_Project_manul.cs" />
+    <Compile Include="DAL\Prj_Project_Query.cs" />
+    <Compile Include="DAL\Prj_Sheet.cs" />
+    <Compile Include="DAL\Prj_Sheet_Delete_manul.cs" />
+    <Compile Include="DAL\Prj_Sheet_manul.cs" />
+    <Compile Include="DAL\Prj_Sheet_Query.cs" />
+    <Compile Include="DAL\Prj_Sheet_Query_manul.cs" />
+    <Compile Include="DAL\Prj_Sheet_SaveUpdate_manul.cs" />
+    <Compile Include="DAL\Prj_Unit.cs" />
+    <Compile Include="DAL\Prj_Unit_Delete_manul.cs" />
+    <Compile Include="DAL\Prj_Unit_manul.cs" />
+    <Compile Include="DAL\Prj_Unit_Query.cs" />
+    <Compile Include="DAL\Prj_Unit_Query_manul.cs" />
+    <Compile Include="DAL\SessionManager.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogicGraphic\Dynamic\DynamicObject.cs" />
+    <Compile Include="LogicGraphic\Dynamic\DynCrossReference.cs" />
+    <Compile Include="LogicGraphic\Dynamic\DynDiColor.cs" />
+    <Compile Include="LogicGraphic\Dynamic\DynValueOut.cs" />
+    <Compile Include="LogicGraphic\Dynamic\DynTagDef.cs" />
+    <Compile Include="LogicGraphic\Helper\Align.cs" />
+    <Compile Include="LogicGraphic\Helper\ColorHelper.cs" />
+    <Compile Include="LogicGraphic\Helper\DataType.cs" />
+    <Compile Include="LogicGraphic\LogicObject.cs" />
+    <Compile Include="LogicGraphic\Helper\ILogicGraphicFormat.cs" />
+    <Compile Include="LogicGraphic\LogicArc.cs" />
+    <Compile Include="LogicGraphic\LogicCircle.cs" />
+    <Compile Include="LogicGraphic\LogicDocShape.cs" />
+    <Compile Include="LogicGraphic\LogicLine.cs" />
+    <Compile Include="LogicGraphic\LogicLinkPoint.cs" />
+    <Compile Include="LogicGraphic\LogicPin.cs" />
+    <Compile Include="LogicGraphic\LogicPoke.cs" />
+    <Compile Include="LogicGraphic\LogicPolygon.cs" />
+    <Compile Include="LogicGraphic\LogicSignalLine.cs" />
+    <Compile Include="LogicGraphic\LogicRectangle.cs" />
+    <Compile Include="LogicGraphic\LogicRoundRectangle.cs" />
+    <Compile Include="LogicGraphic\LogicSymbol.cs" />
+    <Compile Include="LogicGraphic\LogicText.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="URdoLib\Entity.cs" />
+    <Compile Include="URdoLib\ModificationHistry.cs" />
+    <Compile Include="URdoLib\PropertyValue.cs" />
+    <Compile Include="URdoLib\URdoManager.cs" />
+    <Compile Include="Util\ObjectClone.cs" />
+    <Compile Include="Util\ObjectCompare.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="hibernate_config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form1.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DAL\Cld_Constant.hbm.xml" />
+    <EmbeddedResource Include="DAL\Cld_FCBlock.hbm.xml" />
+    <EmbeddedResource Include="DAL\Cld_FCInput.hbm.xml" />
+    <EmbeddedResource Include="DAL\Cld_FCOutput.hbm.xml" />
+    <EmbeddedResource Include="DAL\Prj_Controller.hbm.xml" />
+    <EmbeddedResource Include="DAL\Prj_Document.hbm.xml" />
+    <EmbeddedResource Include="DAL\Prj_Network.hbm.xml" />
+    <EmbeddedResource Include="DAL\Prj_Project.hbm.xml" />
+    <EmbeddedResource Include="DAL\Prj_Sheet.hbm.xml" />
+    <EmbeddedResource Include="DAL\Prj_Unit.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DAL\Cld_FCParameter.hbm.xml" />
+    <EmbeddedResource Include="DAL\Cld_Graphic.hbm.xml" />
+    <EmbeddedResource Include="DAL\Cld_Signal.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DAL\Meta_FCDetail.hbm.xml" />
+    <EmbeddedResource Include="DAL\Meta_FCMaster.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\Castle.Core.dll" />
+    <Content Include="Res\Castle.DynamicProxy2.dll" />
+    <Content Include="Res\Dejavu.dll" />
+    <Content Include="Res\Iesi.Collections.dll" />
+    <Content Include="Res\LinFu.DynamicProxy.dll" />
+    <Content Include="Res\log4net.dll" />
+    <Content Include="Res\NHibernate.ByteCode.Castle.dll" />
+    <Content Include="Res\NHibernate.dll" />
+    <Content Include="Res\NHibernate.JetDriver.dll" />
+    <Content Include="问题记录.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dejavu\DejaVu.csproj">
+      <Project>{A204BD9C-1C1A-4AE8-9716-B7B6C67E09F7}</Project>
+      <Name>DejaVu</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

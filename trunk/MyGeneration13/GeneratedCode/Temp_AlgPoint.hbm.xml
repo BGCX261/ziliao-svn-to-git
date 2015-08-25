@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Temp_AlgPoint" table="Temp_AlgPoint">
+
+		<!-- could not find a primary key for this table/view. NHibernate requires an 'id' element, so you'll have to define one manually. -->
+		<property column="AlgName" type="String" name="m_AlgName" length="50" />
+		<property column="AlgPointX" type="String" name="m_AlgPointX" length="50" />
+		<property column="AlgPointY" type="String" name="m_AlgPointY" length="50" />
+		
+	</class>
+</hibernate-mapping>

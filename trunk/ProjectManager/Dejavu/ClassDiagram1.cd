@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="宋体" Size="9" />
+  <Class Name="DejaVu.UndoRedoArea">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>UndoRedoArea.cs</FileName>
+      <HashCode>AAgEAUBATSAAJBAACECACI0DAcAAIAAoBACACAEABgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DejaVu.UndoRedoMemberExtender">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>UndoRedoArea.cs</FileName>
+      <HashCode>ACAAAAAIAYAAgQAAAAAAAAAAAAAAAAQAAAAAQAAABIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DejaVu.Command" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Command.cs</FileName>
+      <HashCode>IAAAAEAAACAABEAACQQIAQABAAAAAQAICAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DejaVu.Component1" Collapsed="true">
+    <Position X="8.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Component1.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DejaVu.IUndoRedoMember" Collapsed="true">
+    <Position X="7.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>IUndoRedoMember.cs</FileName>
+      <HashCode>AAAAAACAAAAAAAAABAAABEQAAgAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DejaVu.IChangedNotification" Collapsed="true">
+    <Position X="5.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>IUndoRedoMember.cs</FileName>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+</ClassDiagram>

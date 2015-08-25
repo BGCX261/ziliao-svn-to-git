@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Meta_SymbolMaster" table="Meta_SymbolMaster">
+
+		<id name="Symbolid" column="SymbolID" type="String">
+			<generator class="assigned"/>
+		</id>
+		<bag name="MetaSymbolDetailList" inverse="true" lazy="true" >
+			<key column="SymbolID" />
+			<one-to-many class="MetaSymbolDetail" />
+		</bag>
+		<property column="SymbolName" type="String" name="m_SymbolName" length="50" />
+		<property column="SymbolType" type="String" name="m_SymbolType" length="50" />
+		<property column="OringinPoint" type="String" name="m_OringinPoint" length="50" />
+		<property column="ReadOnly" type="Boolean" name="m_ReadOnly" not-null="true" />
+		<property column="FunctionName" type="String" name="m_FunctionName" length="50" />
+		<property column="Code" type="Int16" name="m_Code" />
+		
+	</class>
+</hibernate-mapping>

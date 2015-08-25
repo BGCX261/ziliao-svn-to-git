@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Meta_DataType" table="Meta_DataType">
+
+		<id name="DataTypeName" column="DataTypeName" type="String">
+			<generator class="assigned"/>
+		</id>
+		<bag name="MetaDataTypeDetailList" inverse="true" lazy="true" >
+			<key column="TypeName" />
+			<one-to-many class="MetaDataTypeDetail" />
+		</bag>
+		<bag name="MetaFcDetailList" inverse="true" lazy="true" >
+			<key column="DataType" />
+			<one-to-many class="MetaFcDetail" />
+		</bag>
+		<property column="Index" type="Int32" name="m_Index" />
+		<property column="Class" type="String" name="m_Class" length="50" />
+		<property column="SystemType" type="String" name="m_SystemType" length="255" />
+		<property column="Length" type="Int16" name="m_Length" />
+		<property column="Function" type="String" name="m_Function" length="0" />
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="TDK.Core.Logic.DAL.Cld_FCParameter,TDK.Core.Logic" table="Cld_FCParameter" lazy="true">
+
+		<id name="ID" column="ID" type="Int32" unsaved-value="-1">
+			<generator class="increment"/>
+		</id>
+		<property column="Name" type="String" name="Name" length="50" />
+		<property column="PValue" type="String" name="PValue" length="50" />
+		<property column="Cld_FCBlock_ID" type="Int32" name="Cld_FCBlock_ID" not-null="true" />
+		<property column="Prj_Sheet_ID" type="Int32" name="Prj_Sheet_ID" not-null="true" />
+		<property column="Prj_Document_ID" type="Int32" name="Prj_Document_ID" not-null="true" />
+		<property column="Prj_Controller_ID" type="Int32" name="Prj_Controller_ID" not-null="true" />
+		
+	</class>
+</hibernate-mapping>

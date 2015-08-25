@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Prj_Network" table="Prj_Network">
+
+		<id name="NetworkAddress" column="NetworkAddress" type="String">
+			<generator class="assigned"/>
+		</id>
+		<bag name="PrjUnitList" inverse="true" lazy="true" >
+			<key column="NetworkAddress" />
+			<one-to-many class="PrjUnit" />
+		</bag>
+		<property column="NetworkName" type="String" name="m_NetworkName" length="50" />
+		<property column="Description" type="String" name="m_Description" length="0" />
+		
+	</class>
+</hibernate-mapping>

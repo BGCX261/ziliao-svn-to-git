@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Cfg_VarSystem" table="Cfg_VarSystem">
+
+		<id name="Name" column="Name" type="String">
+			<generator class="assigned"/>
+		</id>
+		<property column="KKSCode" type="String" name="m_KKSCode" length="50" />
+		<property column="IOMapName" type="String" name="m_IOMapName" length="50" />
+		<property column="IOMapDirection" type="Int32" name="m_IOMapDirection" />
+		<property column="DataType" type="String" name="m_DataType" length="50" />
+		<property column="Description" type="String" name="m_Description" length="0" />
+		<property column="ControllerAddress" type="String" name="m_ControllerAddress" length="50" />
+		<property column="DefaultValue" type="String" name="m_DefaultValue" length="50" />
+		<property column="ForceValue" type="String" name="m_ForceValue" length="50" />
+		<property column="IsHistory" type="Boolean" name="m_IsHistory" not-null="true" />
+		<property column="MinimumScale" type="String" name="m_MinimumScale" length="50" />
+		<property column="MaximunScale" type="String" name="m_MaximunScale" length="50" />
+		<property column="LowAlarm1Priority" type="Int32" name="m_LowAlarm1Priority" />
+		<property column="LowAlarm2Priority" type="Int32" name="m_LowAlarm2Priority" />
+		<property column="LowAlarm3Priority" type="Int32" name="m_LowAlarm3Priority" />
+		<property column="LowAlarm4Priority" type="Int32" name="m_LowAlarm4Priority" />
+		<property column="LowAlarmUserPriority" type="Int32" name="m_LowAlarmUserPriority" />
+		<property column="HighAlarm1Priority" type="Int32" name="m_HighAlarm1Priority" />
+		<property column="HighAlarm2Priority" type="Int32" name="m_HighAlarm2Priority" />
+		<property column="HighAlarm3Priority" type="Int32" name="m_HighAlarm3Priority" />
+		<property column="HighAlarm4Priority" type="Int32" name="m_HighAlarm4Priority" />
+		<property column="HighAlarmUserPriority" type="Int32" name="m_HighAlarmUserPriority" />
+		<property column="LowAlarmLimit1Value" type="String" name="m_LowAlarmLimit1Value" length="50" />
+		<property column="LowAlarmLimit2Value" type="String" name="m_LowAlarmLimit2Value" length="50" />
+		<property column="LowAlarmLimit3Value" type="String" name="m_LowAlarmLimit3Value" length="50" />
+		<property column="LowAlarmLimit4Value" type="String" name="m_LowAlarmLimit4Value" length="50" />
+		<property column="LowAlarmLimitUserValue" type="String" name="m_LowAlarmLimitUserValue" length="50" />
+		<property column="HighAlarmLimit1Value" type="String" name="m_HighAlarmLimit1Value" length="50" />
+		<property column="HighAlarmLimit2Value" type="String" name="m_HighAlarmLimit2Value" length="50" />
+		<property column="HighAlarmLimit3Value" type="String" name="m_HighAlarmLimit3Value" length="50" />
+		<property column="HighAlarmLimit4Value" type="String" name="m_HighAlarmLimit4Value" length="50" />
+		<property column="HighAlarmLimitUserValue" type="String" name="m_HighAlarmLimitUserValue" length="50" />
+		<property column="AlarmPriority" type="Int32" name="m_AlarmPriority" />
+		<property column="StatusChecking" type="Int32" name="m_StatusChecking" />
+		<property column="IsSoe" type="Boolean" name="m_IsSoe" not-null="true" />
+		<property column="IOType" type="Int32" name="m_IOType" />
+		
+	</class>
+</hibernate-mapping>

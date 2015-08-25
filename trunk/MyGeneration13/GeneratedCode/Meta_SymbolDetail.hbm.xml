@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Meta_SymbolDetail" table="Meta_SymbolDetail">
+
+		<!-- could not find a primary key for this table/view. NHibernate requires an 'id' element, so you'll have to define one manually. -->
+		<many-to-one name="Symbolid" column="SymbolID" class="MetaSymbolMaster" />
+		<property column="ElementType" type="String" name="m_ElementType" length="50" />
+		<property column="ElementData" type="String" name="m_ElementData" length="0" />
+		<property column="DynamicType" type="Int32" name="m_DynamicType" />
+		
+	</class>
+</hibernate-mapping>

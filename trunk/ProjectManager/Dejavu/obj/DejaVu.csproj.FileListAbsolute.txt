@@ -1,0 +1,25 @@
+F:\llq\TuDevelopKit\TuDevelopKit\王晗\TuDevelopKit项目\TuDevelopKit\Dejavu\bin\Debug\Dejavu.dll
+F:\llq\TuDevelopKit\TuDevelopKit\王晗\TuDevelopKit项目\TuDevelopKit\Dejavu\bin\Debug\Dejavu.pdb
+F:\llq\TuDevelopKit\TuDevelopKit\王晗\TuDevelopKit项目\TuDevelopKit\Dejavu\obj\Debug\ResolveAssemblyReference.cache
+F:\llq\TuDevelopKit\TuDevelopKit\王晗\TuDevelopKit项目\TuDevelopKit\Dejavu\obj\Debug\Dejavu.dll
+F:\llq\TuDevelopKit\TuDevelopKit\王晗\TuDevelopKit项目\TuDevelopKit\Dejavu\obj\Debug\Dejavu.pdb
+C:\Documents and Settings\lyh\桌面\韦远科\ProjectManager\Dejavu\bin\Debug\Dejavu.dll
+C:\Documents and Settings\lyh\桌面\韦远科\ProjectManager\Dejavu\bin\Debug\Dejavu.pdb
+C:\Documents and Settings\lyh\桌面\韦远科\ProjectManager\Dejavu\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\lyh\桌面\韦远科\ProjectManager\Dejavu\obj\Debug\Dejavu.dll
+C:\Documents and Settings\lyh\桌面\韦远科\ProjectManager\Dejavu\obj\Debug\Dejavu.pdb
+X:\googlecode上的资料\ProjectManager\Dejavu\obj\Debug\ResolveAssemblyReference.cache
+X:\googlecode上的资料\ProjectManager\Dejavu\obj\Debug\Dejavu.dll
+X:\googlecode上的资料\ProjectManager\Dejavu\obj\Debug\Dejavu.pdb
+X:\googlecode上的资料\ProjectManager\Dejavu\bin\Debug\Dejavu.dll
+X:\googlecode上的资料\ProjectManager\Dejavu\bin\Debug\Dejavu.pdb
+C:\Documents and Settings\Administrator\桌面\ziliao\ProjectManager\Dejavu\bin\Debug\Dejavu.dll
+C:\Documents and Settings\Administrator\桌面\ziliao\ProjectManager\Dejavu\bin\Debug\Dejavu.pdb
+C:\Documents and Settings\Administrator\桌面\ziliao\ProjectManager\Dejavu\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\桌面\ziliao\ProjectManager\Dejavu\obj\Debug\Dejavu.dll
+C:\Documents and Settings\Administrator\桌面\ziliao\ProjectManager\Dejavu\obj\Debug\Dejavu.pdb
+H:\ziliao\ProjectManager\Dejavu\bin\Debug\Dejavu.dll
+H:\ziliao\ProjectManager\Dejavu\bin\Debug\Dejavu.pdb
+H:\ziliao\ProjectManager\Dejavu\obj\Debug\ResolveAssemblyReference.cache
+H:\ziliao\ProjectManager\Dejavu\obj\Debug\Dejavu.dll
+H:\ziliao\ProjectManager\Dejavu\obj\Debug\Dejavu.pdb

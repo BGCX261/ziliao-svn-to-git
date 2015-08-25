@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="TDK.Core.Logic.DAL.Prj_Sheet,TDK.Core.Logic" table="Prj_Sheet" lazy="true">
+
+		<id name="ID" column="ID" type="Int32" unsaved-value="-1">
+			<generator class="increment"/>
+		</id>
+		<property column="SheetName" type="String" name="SheetName" length="50" />
+		<property column="SheetNum" type="Int32" name="SheetNum" />
+		<property column="Sequence" type="String" name="Sequence" length="50" />
+		<property column="Width" type="Int32" name="Width" />
+		<property column="Height" type="Int32" name="Height" />
+		<property column="Prj_Controller_ID" type="Int32" name="Prj_Controller_ID" not-null="true" />
+		<property column="Prj_Document_ID" type="Int32" name="Prj_Document_ID" not-null="true" />
+		
+	</class>
+</hibernate-mapping>

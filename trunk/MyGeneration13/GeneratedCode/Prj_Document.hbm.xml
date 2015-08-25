@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Prj_Document" table="Prj_Document">
+
+		<!-- composite primary key support is touchy. View the documentation for syntax. -->
+		<bag name="PrjDocumentList" inverse="true" lazy="true" >
+			<key column="ControllerAddress" />
+			<one-to-many class="PrjDocument" />
+		</bag>
+		<property column="DocumentCaption" type="String" name="m_DocumentCaption" length="50" />
+		<property column="CreateTime" type="DateTime" name="m_CreateTime" />
+		<property column="ModifyTime" type="DateTime" name="m_ModifyTime" />
+		<property column="Order" type="String" name="m_Order" length="50" />
+		<property column="Type" type="String" name="m_Type" length="50" />
+		<property column="TranslatorResult" type="String" name="m_TranslatorResult" length="50" />
+		<property column="changed" type="String" name="m_changed" length="50" />
+		
+	</class>
+</hibernate-mapping>

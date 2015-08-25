@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Prj_Controller" table="Prj_Controller">
+
+		<id name="ControllerAddress" column="ControllerAddress" type="String">
+			<generator class="assigned"/>
+		</id>
+		<bag name="PrjDocumentList" inverse="true" lazy="true" >
+			<key column="ControllerAddress" />
+			<one-to-many class="PrjDocument" />
+		</bag>
+		<property column="ControllerName" type="String" name="m_ControllerName" length="50" />
+		<property column="CreateTime" type="DateTime" name="m_CreateTime" />
+		<property column="ModifyTime" type="DateTime" name="m_ModifyTime" />
+		<property column="NetworkAddress" type="String" name="m_NetworkAddress" length="50" />
+		<many-to-one name="UnitAddress" column="UnitAddress" class="PrjUnit" />
+		<property column="Description" type="String" name="m_Description" length="50" />
+		<property column="Version" type="String" name="m_Version" length="100" />
+		<property column="TranslatorResult" type="String" name="m_TranslatorResult" length="50" />
+		
+	</class>
+</hibernate-mapping>

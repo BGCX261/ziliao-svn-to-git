@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="TDK.Core.Logic.DAL.Cld_IRef,TDK.Core.Logic" table="Cld_IRef" lazy="true">
+
+		<id name="ObjectID" column="ObjectID" type="String">
+			<generator class="increment"/>
+		</id>
+		<property column="ControllerAddress" type="String" name="ControllerAddress" length="50" />
+		<property column="DocumentName" type="String" name="DocumentName" length="100" />
+		<property column="SheetName" type="String" name="SheetName" length="50" />
+		<property column="RefName" type="String" name="RefName" length="50" />
+		<property column="SrcRefID" type="String" name="SrcRefID" length="50" />
+		<property column="FunctionCode" type="String" name="FunctionCode" length="50" />
+		<property column="FunctionName" type="String" name="FunctionName" length="50" />
+		<property column="PinName" type="String" name="PinName" length="50" />
+		<property column="Address" type="String" name="Address" length="50" />
+		<property column="X_Y" type="String" name="X_Y" length="50" />
+		<property column="NetworkID" type="String" name="NetworkID" length="50" />
+		
+	</class>
+</hibernate-mapping>

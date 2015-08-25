@@ -1,0 +1,8 @@
+bin\Debug\xinhua_signal_symbol.exe
+bin\Debug\xinhua_signal_symbol.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\xinhua.Form1.resources
+obj\Debug\xinhua_signal_symbol.Properties.Resources.resources
+obj\Debug\xinhua_signal_symbol.csproj.GenerateResource.Cache
+obj\Debug\xinhua_signal_symbol.exe
+obj\Debug\xinhua_signal_symbol.pdb

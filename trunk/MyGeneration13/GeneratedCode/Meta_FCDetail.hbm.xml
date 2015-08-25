@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Meta_FCDetail" table="Meta_FCDetail">
+
+		<!-- composite primary key support is touchy. View the documentation for syntax. -->
+		<bag name="MetaFcDetailList" inverse="true" lazy="true" >
+			<key column="FunctionName" />
+			<one-to-many class="MetaFcDetail" />
+		</bag>
+		<property column="PinIndex" type="Byte" name="m_PinIndex" />
+		<many-to-one name="DataType" column="DataType" class="MetaDataType" />
+		<property column="Tune" type="Boolean" name="m_Tune" not-null="true" />
+		<property column="PinType" type="String" name="m_PinType" length="50" />
+		<property column="MaxValue" type="String" name="m_MaxValue" length="50" />
+		<property column="MinValue" type="String" name="m_MinValue" length="50" />
+		<property column="ValidValue" type="String" name="m_ValidValue" length="0" />
+		<property column="DefaultValue" type="String" name="m_DefaultValue" length="50" />
+		<property column="Required" type="Boolean" name="m_Required" not-null="true" />
+		<property column="Description" type="String" name="m_Description" length="255" />
+		<property column="Fixed" type="Boolean" name="m_Fixed" not-null="true" />
+		<property column="PinSignalType" type="String" name="m_PinSignalType" length="50" />
+		
+	</class>
+</hibernate-mapping>

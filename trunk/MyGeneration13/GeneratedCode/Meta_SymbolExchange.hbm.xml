@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Meta_SymbolExchange" table="Meta_SymbolExchange">
+
+		<id name="Objectid" column="ObjectID" type="String">
+			<generator class="assigned"/>
+		</id>
+		<property column="ObjectName" type="String" name="m_ObjectName" length="50" />
+		<property column="ObjectType" type="String" name="m_ObjectType" length="50" />
+		<property column="ParentObjectID" type="String" name="m_ParentObjectID" length="50" />
+		
+	</class>
+</hibernate-mapping>

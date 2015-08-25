@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Temp_FCDetail" table="Temp_FCDetail">
+
+		<!-- could not find a primary key for this table/view. NHibernate requires an 'id' element, so you'll have to define one manually. -->
+		<property column="ObjectID" type="String" name="m_ObjectID" length="50" />
+		<property column="PinName" type="String" name="m_PinName" length="50" />
+		<property column="PinValue" type="String" name="m_PinValue" length="50" />
+		<property column="IsHistory" type="Boolean" name="m_IsHistory" not-null="true" />
+		<property column="FcBelong" type="String" name="m_FcBelong" length="50" />
+		<property column="SignalBelone" type="String" name="m_SignalBelone" length="50" />
+		<property column="Point" type="String" name="m_Point" length="50" />
+		<property column="DetailType" type="String" name="m_DetailType" length="50" />
+		<property column="ControllerAddress" type="String" name="m_ControllerAddress" length="50" />
+		<property column="DocumentName" type="String" name="m_DocumentName" length="50" />
+		
+	</class>
+</hibernate-mapping>

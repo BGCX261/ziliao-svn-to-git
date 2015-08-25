@@ -1,0 +1,10 @@
+bin\Release\Dejavu.dll
+bin\Release\Dejavu.pdb
+obj\Release\ResolveAssemblyReference.cache
+obj\Release\Dejavu.dll
+obj\Release\Dejavu.pdb
+bin\Debug\Dejavu.dll
+bin\Debug\Dejavu.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Dejavu.dll
+obj\Debug\Dejavu.pdb

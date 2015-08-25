@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" assembly="Business.Data" namespace="Business.Data">
+	<class name="Prj_Sheet" table="Prj_Sheet">
+
+		<!-- composite primary key support is touchy. View the documentation for syntax. -->
+		<property column="SheetNum" type="Int32" name="m_SheetNum" />
+		<property column="Order" type="String" name="m_Order" length="50" />
+		
+	</class>
+</hibernate-mapping>
